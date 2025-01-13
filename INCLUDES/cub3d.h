@@ -70,7 +70,6 @@ int		ft_check_arg(char **argv);
 
 // PARSER UTILS //
 
-
 // INIT DATA //
 
 int		init_data(t_struct *data);
@@ -87,6 +86,13 @@ void	draw_collumn(t_struct *data, int x, double distance);
 void	render_vertical(t_struct *data, int x, int height);
 void	my_mlx_pixel_put(t_struct *d, int x, int y, int color);
 double	check_ray(t_struct *data, t_p *p, double ray_angle);
+
+// CHANGE POSITION //
+
+void	change_direction(t_p *p, int key);
+void	change_position(t_struct *data, t_p *p, int key);
+int		check_next_pos(t_struct *d, t_p *p, int key);
+int		assign_next_pos(t_p *p, int key, char c);
 
 // ERRORS //
 

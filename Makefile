@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2025/01/13 11:36:19 by tfauve-p         ###   ########.fr        #
+#    Updated: 2025/01/13 14:53:11 by gprunet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,10 @@ SOURCES = \
 	$(SOURCES_DIR)main.c \
 	$(SOURCES_DIR)parser.c \
 	$(SOURCES_DIR)parser_utilis.c \
+	$(SOURCES_DIR)init_data.c \
+	$(SOURCES_DIR)init_player.c \
+	$(SOURCES_DIR)raycasting.c \
+	$(SOURCES_DIR)change_pos.c \
 	$(SOURCES_DIR)error.c
 
 OBJECTS = $(SOURCES:$(SOURCES_DIR)%.c=$(OBJECTS_DIR)%.o)
