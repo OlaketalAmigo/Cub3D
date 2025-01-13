@@ -27,6 +27,12 @@ typedef struct data
 	int		a;
 	char	*string;
 	char	**file;
+	int		F1;
+	int		F2;
+	int		F3;
+	int		C1;
+	int		C2;
+	int		C3;
 }	t_struct;
 
 #endif
@@ -55,8 +61,8 @@ int		ft_check_texture_file_duplicate(t_struct *data, char *s);
 
 // PARSER UTILIS 3 //
 
-int		ft_check_floor(t_struct *data);
-int		ft_check_ceiling(t_struct *data);
+int		ft_check_floor(t_struct *data, char *s);
+int		ft_check_ceiling(t_struct *data, char *s);
 
 // TOOLS 1 //
 

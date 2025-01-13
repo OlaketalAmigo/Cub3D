@@ -64,9 +64,9 @@ int	ft_check_map(t_struct *data)
 		return (printf("Error : Couldn't open textures file\n"), BAD);
 	if (ft_check_textures_duplicate(data) == BAD)
 		return (printf("Error : Too much path for one texture\n"),BAD);
-	if (ft_check_floor(data) == BAD)
+	if (ft_check_floor(data, "F") == BAD)
 		return (printf("Error : Something wrong with floor\n"), BAD);
-	if (ft_check_ceiling(data) == BAD)
+	if (ft_check_ceiling(data, "C") == BAD)
 		return (printf("Error : Something wrong with ceiling\n"), BAD);
 	return (GOOD);
 }
