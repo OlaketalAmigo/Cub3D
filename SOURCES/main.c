@@ -15,9 +15,11 @@ int	main(int argc, char **argv)
 	t_struct	*data;
 	t_p			*p;
 
+	data = NULL;
+	p = NULL;
 	if (ft_check_arg(argv) == BAD)
 		ft_error_and_exit("Wrong number of args");
-	if (init_prog(data) == BAD)
+	if (init_datas(data) == BAD)
 		ft_error_and_exit("Malloc error of data");
 	if (init_player(data, p) == BAD)
 		ft_error_and_exit("Malloc error of player");
