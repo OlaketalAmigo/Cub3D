@@ -32,7 +32,6 @@ typedef struct data
 	char	**map;
 	char	*string;
 	double	fov;
-	int		a;
 	int		ray_len;
 	int		screen_h;
 	int		screen_w;

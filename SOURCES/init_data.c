@@ -31,7 +31,6 @@ int	init_data(t_struct *data)
 	data->map = NULL;
 	data->string = NULL;
 	data->fov = 0.66;
-	data->a = 0;
 	data->ray_len = 100;
 	data->screen_h = 800;
 	data->screen_w = 1200;
