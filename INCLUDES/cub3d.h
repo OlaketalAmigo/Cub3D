@@ -1,5 +1,5 @@
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "stdio.h"
 # include "stdlib.h"
@@ -19,11 +19,78 @@
 
 # define GOOD 0
 # define BAD 1
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define L_ARROW 65361
+# define R_ARROW 65363
+# define ESC 65307
 
 typedef struct data
 {
-	int		a;
+	char	**map;
 	char	*string;
+	double	fov;
+	int		a;
+	int		ray_len;
+	int		screen_h;
+	int		screen_w;
+	int		map_h;
+	int		map_w;
+	int		spawn_x;
+	int		spawn_y;
+	int		spawn_dir;
+	t_graph	graph;
+
 }	t_struct;
+
+typedef struct s_graphic
+{
+	char	*addr;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int		bpp;
+	int		line_length;
+	int		endian;
+}	t_graph;
+
+typedef struct s_p
+{
+	int		x_pos;
+	int		y_pos;
+	int		x_dir;
+	int		y_dir;
+}	t_p;
+
+// PARSER //
+
+int		ft_check_arg(char **argv);
+
+// PARSER UTILS //
+
+
+// INIT DATA //
+
+int		init_data(t_struct *data);
+int		graphic_init(t_struct *data);
+
+// INIT PLAYER //
+
+int		init_player(t_struct *data, t_p *p);
+
+// RAYCASTING //
+
+void	init_rays(t_struct *data, t_p *p);
+void	draw_collumn(t_struct *data, int x, double distance);
+void	render_vertical(t_struct *data, int x, int height);
+void	my_mlx_pixel_put(t_struct *d, int x, int y, int color);
+double	check_ray(t_struct *data, t_p *p, double ray_angle);
+
+// ERRORS //
+
+void	ft_error_and_exit(char *str);
+void	ft_close(t_struct *data, t_p *p);
 
 #endif
