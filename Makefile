@@ -6,7 +6,7 @@
 #    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2025/01/13 11:36:19 by tfauve-p         ###   ########.fr        #
+#    Updated: 2025/01/13 16:39:10 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,26 +19,19 @@ OBJECTS_DIR = OBJECTS/
 SOURCES = \
 	$(SOURCES_DIR)main.c \
 	$(SOURCES_DIR)parser.c \
-	$(SOURCES_DIR)parser_utilis.c \
-	$(SOURCES_DIR)error.c
+	$(SOURCES_DIR)parser_utils.c \
+	$(SOURCES_DIR)parser_utils_2.c \
+	$(SOURCES_DIR)parser_utils_3.c \
+	$(SOURCES_DIR)error.c \
+	$(SOURCES_DIR)get_next_line.c \
+	$(SOURCES_DIR)get_next_line_utils.c \
+	$(SOURCES_DIR)free.c \
+	$(SOURCES_DIR)trim.c \
+	$(SOURCES_DIR)tools_1.c
 
 OBJECTS = $(SOURCES:$(SOURCES_DIR)%.c=$(OBJECTS_DIR)%.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
-
-PURPLE = \033[0;35m
-LIGHTPURPLE = \033[1;35m
-RED = \033[0;31m
-LIGHTRED = \033[1;31m
-ORANGE = \033[0;33m
-YELLOW = \033[1;33m
-LIGHTGREEN = \033[1;32m
-GREEN = \033[0;32m
-LIGHTCYAN = \033[1;36m
-CYAN = \033[0;36m
-LIGHTBLUE = \033[1;34m
-BLUE = \033[0;34m
-RESET = \033[0;0m
 
 all: $(NAME)
 
