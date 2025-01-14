@@ -1,25 +1,15 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2025/01/13 14:53:11 by gprunet          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = cub3D
 
 SOURCES_DIR = SOURCES/
 INCLUDES_DIR = INCLUDES/
 OBJECTS_DIR = OBJECTS/
+MLX_DIR = minilibx-linux/
+MLX_INC = -I$(MLX_DIR)
 
 SOURCES = \
 	$(SOURCES_DIR)main.c \
 	$(SOURCES_DIR)parser.c \
-	$(SOURCES_DIR)parser_utilis.c \
+	$(SOURCES_DIR)parser_utils.c \
 	$(SOURCES_DIR)init_data.c \
 	$(SOURCES_DIR)init_player.c \
 	$(SOURCES_DIR)raycasting.c \
@@ -47,12 +37,12 @@ RESET = \033[0;0m
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME) -lreadline -lcurses
+	$(CC) $(CFLAGS) $(OBJECTS) -Lminilibx-linux -lmlx -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o $(NAME)
 	@clear
 
 $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@mkdir -p $(OBJECTS_DIR)
-	@$(CC) $(CFLAGS) -I $(INCLUDES_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -I $(INCLUDES_DIR) $(MLX_INC) -c $< -o $@
 
 clean:
 	@rm -rf $(OBJECTS_DIR)

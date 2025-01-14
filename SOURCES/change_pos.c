@@ -30,7 +30,7 @@ int	assign_next_pos(t_p *p, int key, char c)
 		else if (key == D)
 			return (p->x_pos + p->y_dir);
 	}
-	else if (c == 'y')
+	else
 	{
 		if (key == W)
 			return (p->y_pos + p->y_dir);
@@ -41,6 +41,7 @@ int	assign_next_pos(t_p *p, int key, char c)
 		else if (key == D)
 			return (p->y_pos - p->x_dir);
 	}
+	return (0);
 }
 
 int	check_next_pos(t_struct *d, t_p *p, int key)
@@ -53,6 +54,7 @@ int	check_next_pos(t_struct *d, t_p *p, int key)
 	if (d->map_w < t_x || d->map_h < t_y || d->map[t_y][t_x] == ' '
 		|| d->map[t_y][t_x] == '1')
 		return (BAD);
+	return (GOOD);
 }
 
 void	change_position(t_struct *data, t_p *p, int key)

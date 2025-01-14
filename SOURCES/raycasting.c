@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
-void	my_mlx_pixel_put(t_struct *d, int x, int y, int color)
+void	my_mlx_pixel_put(t_graph *graph, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = d->graph.addr + (y * d->graph.line_length + x * (d->graph.bpp / 8));
+	dst = graph->addr + (y * graph->line_length + x * (graph->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -20,11 +20,11 @@ void	render_vertical(t_struct *data, int x, int height)
 	while (y < data->screen_h)
 	{
 		if (y < start)
-			my_mlx_pixel_put(data, x, y, 14753280);
+			my_mlx_pixel_put(data->graph, x, y, 14753280);
 		else if (y >= start && y < end)
-			my_mlx_pixel_put(data, x, y, 0x00FF00);
+			my_mlx_pixel_put(data->graph, x, y, 0x00FF00);
 		else
-			my_mlx_pixel_put(data, x, y, 14443520);
+			my_mlx_pixel_put(data->graph, x, y, 14443520);
 		y++;
 	}
 }
@@ -69,7 +69,7 @@ void	init_rays(t_struct *data, t_p *p)
 	{
 		distance = check_ray(data, p, angle);
 		if (distance != -1)
-			draw(data, x, distance);
+			draw_collumn(data, x, distance);
 		angle = angle + step;
 		x++;
 	}

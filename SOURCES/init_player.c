@@ -1,7 +1,9 @@
 #include "cub3d.h"
 
-int	init_player(t_struct *data, t_p *p)
+int	init_player(t_struct *data)
 {
+	t_p	*p;
+
 	p = malloc(sizeof(t_p));
 	if (!p)
 		return (BAD);
@@ -21,5 +23,6 @@ int	init_player(t_struct *data, t_p *p)
 			p->x_dir = 1;
 		p->y_dir = 0;
 	}
+	data->p = p;
 	return (GOOD);
 }

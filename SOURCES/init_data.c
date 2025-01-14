@@ -19,7 +19,7 @@ int	graphic_init(t_struct *data)
 	g->addr = mlx_get_data_addr(g->img, &g->bpp, &g->line_length, &g->endian);
 	if (!g->addr)
 		return (BAD);
-	data->graph = *g;
+	data->graph = g;
 	return (GOOD);
 }
 
