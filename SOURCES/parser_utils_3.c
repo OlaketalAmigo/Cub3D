@@ -1,32 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils_3.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 11:23:22 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/01/15 13:33:52 by tfauve-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-char	*ft_put_number_to_string(char *string, int n)
-{
-	int		i;
-	int		j;
-	int		k;
-	int		dodged;
-	char	*to_return;
-
-	i = 0;
-	dodged = 0;
-	while(++i != -1 && string[i] && dodged < n)
-	{
-		if (string[i] == 44)
-			dodged++;
-	}
-	j = i;
-	while(string[i] && string[i] != 44 )
-		i++;
-	to_return = malloc (i - j + 1);
-	if (!to_return)
-		return (NULL);
-	k = 0;
-	while (j < i)
-		to_return[k++] = string[j++];
-	to_return[k] = '\0';
-	return (to_return);
-}
 
 int	ft_is_valid_number(t_struct *data, char	*string, char *input, char c)
 {
@@ -35,20 +19,20 @@ int	ft_is_valid_number(t_struct *data, char	*string, char *input, char c)
 	if (ft_strlen(input) >= 4)
 		return (BAD);
 	nb = atoi(input);
-	if (nb < 0 ||  nb > 255)
+	if (nb < 0 || nb > 255)
 		return (BAD);
-	if (ft_strncmp(string,"first", 5) == GOOD && c == 102)
-		data->F1 = nb;
-	if (ft_strncmp(string,"second", 6) == GOOD && c == 102)
-		data->F2 = nb;
-	if (ft_strncmp(string,"third", 5) == GOOD && c == 102)
-		data->F3 = nb;
-	if (ft_strncmp(string,"first", 5) == GOOD && c == 99)
-		data->C1 = nb;
-	if (ft_strncmp(string,"second", 6) == GOOD && c == 99)
-		data->C2 = nb;
-	if (ft_strncmp(string,"third", 5) == GOOD && c == 99)
-		data->C3 = nb;
+	if (ft_strncmp(string, "first", 5) == GOOD && c == 102)
+		data->floor_first = nb;
+	if (ft_strncmp(string, "second", 6) == GOOD && c == 102)
+		data->floor_second = nb;
+	if (ft_strncmp(string, "third", 5) == GOOD && c == 102)
+		data->floor_third = nb;
+	if (ft_strncmp(string, "first", 5) == GOOD && c == 99)
+		data->ceiling_first = nb;
+	if (ft_strncmp(string, "second", 6) == GOOD && c == 99)
+		data->ceiling_second = nb;
+	if (ft_strncmp(string, "third", 5) == GOOD && c == 99)
+		data->ceiling_third = nb;
 	return (GOOD);
 }
 
@@ -77,7 +61,7 @@ int	ft_check_floor_values(t_struct *data, char *string)
 	if (ft_is_valid_number(data, "second", second, 'f') == BAD)
 		return (free(first), free(second), free(third), BAD);
 	if (ft_is_valid_number(data, "third", third, 'f') == BAD)
-		return (free(string), free(first), free(second), free(third), BAD);
+		return (free(first), free(second), free(third), BAD);
 	return (free(first), free(second), free(third), GOOD);
 }
 
@@ -106,16 +90,18 @@ int	ft_check_ceiling_values(t_struct *data, char *string)
 	if (ft_is_valid_number(data, "second", second, 'f') == BAD)
 		return (free(first), free(second), free(third), BAD);
 	if (ft_is_valid_number(data, "third", third, 'f') == BAD)
-		return (free(string), free(first), free(second), free(third), BAD);
+		return (free(first), free(second), free(third), BAD);
 	return (free(first), free(second), free(third), GOOD);
 }
 
 int	ft_check_floor(t_struct *data, char *s)
 {
 	int		i;
+	int		found;
 	char	*trimmed;
 
 	i = 0;
+	found = 0;
 	while (data->file[i])
 	{
 		trimmed = ft_strtrim(data->file[i], " ");
@@ -124,21 +110,26 @@ int	ft_check_floor(t_struct *data, char *s)
 		{
 			if (ft_check_floor_values(data, trimmed) == BAD)
 				return (free(trimmed), BAD);
-			else
-				return (free(trimmed), GOOD);
+			if (found == 1)
+				return (free(trimmed), BAD);
+			found++;
 		}
 		free(trimmed);
 		i++;
 	}
+	if (found == 1)
+		return (GOOD);
 	return (BAD);
 }
 
 int	ft_check_ceiling(t_struct *data, char *s)
 {
 	int		i;
+	int		found;
 	char	*trimmed;
 
 	i = 0;
+	found = 0;
 	while (data->file[i])
 	{
 		trimmed = ft_strtrim(data->file[i], " ");
@@ -147,11 +138,14 @@ int	ft_check_ceiling(t_struct *data, char *s)
 		{
 			if (ft_check_ceiling_values(data, trimmed) == BAD)
 				return (free(trimmed), BAD);
-			else
-				return (free(trimmed), GOOD);
+			if (found == 1)
+				return (free(trimmed), BAD);
+			found++;
 		}
 		free(trimmed);
 		i++;
 	}
+	if (found == 1)
+		return (GOOD);
 	return (BAD);
 }

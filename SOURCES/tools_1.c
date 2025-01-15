@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools_1.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/15 11:23:33 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/01/15 13:14:26 by tfauve-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 char	*ft_get_path(char *string)
@@ -24,6 +36,26 @@ char	*ft_get_path(char *string)
 		}
 	}
 	return (NULL);
+}
+
+char	*ft_strdup(char *string)
+{
+	int		i;
+	char	*to_return;
+
+	if (!string)
+		return (NULL);
+	i = ft_strlen(string);
+	to_return = malloc (i + 1);
+	if (!to_return)
+		return (NULL);
+	i = -1;
+	while (string[++i])
+	{
+		to_return[i] = string[i];
+	}
+	to_return[i] = '\0';
+	return (to_return);
 }
 
 void	ft_printf_tab(char **tab)
@@ -65,9 +97,9 @@ char	*ft_remove_space(char *string)
 
 	int (i) = -1;
 	int (k) = -1;
-	int	(j) = 0;
-	int	(l) = -1;
-	if(!string)
+	int (j) = 0;
+	int (l) = -1;
+	if (!string)
 		return (NULL);
 	while (string[++i])
 	{

@@ -6,7 +6,7 @@
 #    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2025/01/13 16:39:10 by tfauve-p         ###   ########.fr        #
+#    Updated: 2025/01/15 13:31:53 by tfauve-p         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,12 +22,15 @@ SOURCES = \
 	$(SOURCES_DIR)parser_utils.c \
 	$(SOURCES_DIR)parser_utils_2.c \
 	$(SOURCES_DIR)parser_utils_3.c \
+	$(SOURCES_DIR)parser_utils_4.c \
+	$(SOURCES_DIR)parser_utils_5.c \
 	$(SOURCES_DIR)error.c \
 	$(SOURCES_DIR)get_next_line.c \
 	$(SOURCES_DIR)get_next_line_utils.c \
 	$(SOURCES_DIR)free.c \
 	$(SOURCES_DIR)trim.c \
-	$(SOURCES_DIR)tools_1.c
+	$(SOURCES_DIR)tools_1.c \
+	$(SOURCES_DIR)tools_2.c
 
 OBJECTS = $(SOURCES:$(SOURCES_DIR)%.c=$(OBJECTS_DIR)%.o)
 CC = cc
