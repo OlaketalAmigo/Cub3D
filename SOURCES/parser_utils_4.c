@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 14:26:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:04:27 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,7 @@ int	ft_check_border(t_struct *data, int i)
 	int	j;
 
 	j = -1;
-	while (data->map[i][++j])
-	{
-		if (data->map[i][j] == 32)
-			data->map[i][j] = 49;
-	}
-	j = -1;
+	ft_replace_characters(data->map, 32, 49);
 	while (data->map[i][++j])
 	{
 		if (data->map[i][j] == 48)

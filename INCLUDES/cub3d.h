@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 13:59:24 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:07:08 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define ERROR_FILE_CEILING "Error\nSomething wrong with ceiling\n"
 # define ERROR_FILE_FLOOR "Error\nSomething wrong with floor\n"
 # define ERROR_FILE_SPACES "Error\nFile's element can't be separated by spaces\n"
+# define ERROR_FILE_ELEMENT_ORDER "Error\nElement's order is wrong\n"
 # define ERROR_MAP_ONE_BLOCK "Error\nMap can't be separated by newlines\n"
 # define ERROR_MAP_WRONG_CHAR "Error\nMap contains invalid characters\n"
 # define ERROR_MAP_BORDER "Error\nMap must be cornered by walls '1'\n"
@@ -101,6 +102,9 @@ int		ft_check_cornered_by_walls(t_struct *data);
 
 int		ft_check_map_characters(t_struct *data, int i, int *count);
 int		ft_check_map(t_struct *data);
+int		ft_check_element_order(char	**tab);
+void	ft_fill_order_tab(int *check, int i, char **tab);
+void	ft_replace_characters(char **tab, char s, char c);
 
 // TOOLS 1 //
 
