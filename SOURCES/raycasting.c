@@ -4,7 +4,7 @@ void	my_mlx_pixel_put(t_graph *graph, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = graph->addr + (y * graph->line_length + x * (graph->bpp / 8));
+	dst = graph->addr + (y * graph->length + x * (graph->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -14,10 +14,10 @@ void	render_vertical(t_struct *data, int x, int height)
 	int	start;
 	int	end;
 
-	start = (data->screen_h - height) / 2;
+	start = (data->sc_h - height) / 2;
 	end = start + height;
 	y = 0;
-	while (y < data->screen_h)
+	while (y < data->sc_h)
 	{
 		if (y < start)
 			my_mlx_pixel_put(data->graph, x, y, 14753280);
@@ -33,7 +33,7 @@ void	draw_collumn(t_struct *data, int x, double distance)
 {
 	int	height;
 
-	height = data->screen_h / distance;
+	height = data->sc_h / distance;
 	render_vertical(data, x, height);
 }
 
@@ -44,7 +44,10 @@ double	check_ray(t_struct *data, t_p *p, double ray_angle)
 	int		y;
 
 	distance = 0.0;
-	while (distance < data->ray_len) // doit peut etre ajouter de pas depasser les limites de la map
+	x = p->x_pos + cos(ray_angle) * distance;
+	y = p->y_pos + sin(ray_angle) * distance;
+	while (distance < data->ray_len && x < data->map_w && y < data->map_h
+		&& x >= 0 && y >= 0)
 	{
 		x = p->x_pos + cos(ray_angle) * distance;
 		y = p->y_pos + sin(ray_angle) * distance;
@@ -62,10 +65,10 @@ void	init_rays(t_struct *data, t_p *p)
 	double	step;
 	int		x;
 
-	step = data->fov / (double)data->screen_w;
+	step = data->fov / (double)data->sc_w;
 	angle = p->x_dir - (data->fov / 2);
 	x = 0;
-	while (x < data->screen_w)
+	while (x < data->sc_w)
 	{
 		distance = check_ray(data, p, angle);
 		if (distance != -1)

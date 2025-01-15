@@ -43,8 +43,8 @@ typedef struct s_graphic
 	void	*win;
 	void	*img;
 	int		bpp;
-	int		line_length;
-	int		endian;
+	int		length;
+	int		end;
 }	t_graph;
 
 typedef struct data
@@ -53,8 +53,8 @@ typedef struct data
 	char	*string;
 	double	fov;
 	int		ray_len;
-	int		screen_h;
-	int		screen_w;
+	int		sc_h;
+	int		sc_w;
 	int		map_h;
 	int		map_w;
 	int		spawn_x;
@@ -67,38 +67,38 @@ typedef struct data
 
 // PARSER //
 
-int		ft_check_arg(char **argv);
+int			ft_check_arg(char **argv);
 
 // PARSER UTILS //
 
 // INIT DATA //
 
-int		init_data(t_struct *data);
-int		graphic_init(t_struct *data);
+t_struct	*init_data(void);
+int			graphic_init(t_graph **g, t_struct *d);
 
 // INIT PLAYER //
 
-int		init_player(t_struct *data);
+int			init_player(t_struct *data);
 
 // RAYCASTING //
 
-void	init_rays(t_struct *data, t_p *p);
-void	draw_collumn(t_struct *data, int x, double distance);
-void	render_vertical(t_struct *data, int x, int height);
-void	my_mlx_pixel_put(t_graph *graph, int x, int y, int color);
-double	check_ray(t_struct *data, t_p *p, double ray_angle);
+void		init_rays(t_struct *data, t_p *p);
+void		draw_collumn(t_struct *data, int x, double distance);
+void		render_vertical(t_struct *data, int x, int height);
+void		my_mlx_pixel_put(t_graph *graph, int x, int y, int color);
+double		check_ray(t_struct *data, t_p *p, double ray_angle);
 
 // CHANGE POSITION //
 
-void	change_direction(t_p *p, int key);
-void	change_position(t_struct *data, t_p *p, int key);
-int		check_next_pos(t_struct *d, t_p *p, int key);
-int		assign_next_pos(t_p *p, int key, char c);
+void		change_direction(t_struct *data, t_p *p, int key);
+void		change_position(t_struct *data, t_p *p, int key);
+int			check_next_pos(t_struct *d, t_p *p, int key);
+int			assign_next_pos(t_p *p, int key, char c);
 
 // ERRORS //
 
-void	ft_error_and_exit(char *str, t_struct *data);
-int		ft_close(t_struct *data);
-void	ft_free(char **tab);
+void		ft_error_and_exit(char *str, t_struct *data);
+int			ft_close(t_struct *data);
+void		ft_free(char **tab);
 
 #endif

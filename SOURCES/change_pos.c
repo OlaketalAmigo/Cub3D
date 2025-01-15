@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	change_direction(t_p *p, int key)
+void	change_direction(t_struct *data, t_p *p, int key)
 {
 	double	tmp;
 
@@ -15,6 +15,11 @@ void	change_direction(t_p *p, int key)
 		p->x_dir = p->x_dir * cos(-0.1) - p->y_dir * sin(-0.1);
 		p->y_dir = tmp * sin(-0.1) + p->y_dir * cos(-0.1);
 	}
+	mlx_destroy_image(data->graph->mlx, data->graph->img);
+	data->graph->img = mlx_new_image(data->graph->mlx, data->sc_w, data->sc_h);
+	data->graph->addr = mlx_get_data_addr(data->graph->img,
+			&data->graph->bpp, &data->graph->length, &data->graph->end);
+	init_rays(data, p);
 }
 
 int	assign_next_pos(t_p *p, int key, char c)
@@ -63,4 +68,9 @@ void	change_position(t_struct *data, t_p *p, int key)
 		return ;
 	p->x_pos = assign_next_pos(p, key, 'x');
 	p->y_pos = assign_next_pos(p, key, 'y');
+	mlx_destroy_image(data->graph->mlx, data->graph->img);
+	data->graph->img = mlx_new_image(data->graph->mlx, data->sc_w, data->sc_h);
+	data->graph->addr = mlx_get_data_addr(data->graph->img,
+			&data->graph->bpp, &data->graph->length, &data->graph->end);
+	init_rays(data, p);
 }
