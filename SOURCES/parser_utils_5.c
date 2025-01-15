@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:30:02 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 13:56:05 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:07:34 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,64 @@ int	ft_check_map(t_struct *data)
 	if (count == 0)
 		return (printf(ERROR_MAP_MISSING_ENTRY), BAD);
 	return (GOOD);
+}
+
+int	ft_check_element_order(char	**tab)
+{
+	int	check[7];
+
+	int (i) = -1;
+	check[0] = -1;
+	check[1] = -1;
+	check[2] = -1;
+	check[3] = -1;
+	check[4] = -1;
+	check[5] = -1;
+	check[6] = -1;
+	while (tab[++i] && (check[0] == -1 || check[1] == -1 || check[2] == -1
+			|| check[3] == -1 || check[4] == -1 || check[5] == -1
+			|| check[6] == -1))
+		ft_fill_order_tab(check, i, tab);
+	if (check[0] < check[1] && check [1] < check[2] && check[2] < check[3]
+		&& check[3] < check[4] && check[4] < check[5] && check[5] < check[6])
+		return (GOOD);
+	return (printf(ERROR_FILE_ELEMENT_ORDER), BAD);
+}
+
+void	ft_fill_order_tab(int *check, int i, char **tab)
+{
+	if (ft_strncmp(tab[i], "NO", 2) == GOOD)
+		check[0] = i;
+	if (ft_strncmp(tab[i], "SO", 2) == GOOD)
+		check[1] = i;
+	if (ft_strncmp(tab[i], "WE", 2) == GOOD)
+		check[2] = i;
+	if (ft_strncmp(tab[i], "EA", 2) == GOOD)
+		check[3] = i;
+	if (ft_strncmp(tab[i], "F", 1) == GOOD)
+		check[4] = i;
+	if (ft_strncmp(tab[i], "C", 1) == GOOD)
+		check[5] = i;
+	if (ft_check_upper_wall(tab[i]) == GOOD)
+		check[6] = i;
+}
+
+void	ft_replace_characters(char **tab, char s, char c)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	if (tab)
+	{
+		while (tab[++i])
+		{
+			j = -1;
+			while (tab[i][++j])
+			{
+				if (tab[i][j] == s)
+					tab[i][j] = c;
+			}
+		}
+	}
 }
