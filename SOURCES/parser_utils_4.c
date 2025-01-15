@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_4.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:25 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 15:04:27 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:25:58 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,8 @@ int	ft_check_whitespace_line(char **tab)
 int	ft_check_upper_wall(char *string)
 {
 	int	i;
-	int	j;
 
 	i = -1;
-	j = 0;
 	if (!string || ft_strlen(string) == 0)
 		return (BAD);
 	while (string[++i])

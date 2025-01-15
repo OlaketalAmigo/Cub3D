@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 15:13:53 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:34:02 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "mlx.h"
+# include <math.h>
 # include "stdio.h"
 # include "stdlib.h"
 # include "readline/readline.h"
@@ -29,8 +31,34 @@
 #  define BUFFER_SIZE 100
 # endif
 
-# define GOOD 0
-# define BAD 1
+# define GOOD 1
+# define BAD 0
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define L_ARROW 65361
+# define R_ARROW 65363
+
+typedef struct s_p
+{
+	int		x_pos;
+	int		y_pos;
+	int		x_dir;
+	int		y_dir;
+}	t_p;
+
+typedef struct s_graphic
+{
+	char	*addr;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int		bpp;
+	int		length;
+	int		end;
+}	t_graph;
+
 # define YES 0
 # define NO 1
 # define ERROR_ARGS_NUMBER "Error\nWrong number of args\n"
@@ -53,8 +81,6 @@
 
 typedef struct data
 {
-	int		a;
-	char	*string;
 	char	**file;
 	char	**map;
 	int		floor_first;
@@ -63,11 +89,25 @@ typedef struct data
 	int		ceiling_first;
 	int		ceiling_second;
 	int		ceiling_third;
+	double	fov;
+	int		ray_len;
+	int		sc_h;
+	int		sc_w;
+	int		map_h;
+	int		map_w;
+	int		spawn_x;
+	int		spawn_y;
+	int		spawn_dir;
+	t_graph	*graph;
+	t_p		*p;
+
 }	t_struct;
 
 // ERROR //
 
 void	ft_print_error_and_exit(char *s);
+void	ft_error_and_exit(char *s, t_struct *data);
+int		ft_close(t_struct *data);
 
 // PARSER //
 
@@ -148,5 +188,35 @@ int		ft_check(char const c, char const *set);
 int		ft_start(char const *s1, char const *set);
 int		ft_end(char const *s1, char const *set, int length);
 char	*ft_strtrim(char *s1, char *set);
+
+// INIT DATA //
+
+int		init_data(t_struct *data);
+int		graphic_init(t_graph **g, t_struct *d);
+
+// INIT PLAYER //
+
+int		init_player(t_struct *data);
+
+// RAYCASTING //
+
+void	init_rays(t_struct *data, t_p *p);
+void	draw_collumn(t_struct *data, int x, double distance);
+void	render_vertical(t_struct *data, int x, int height);
+void	my_mlx_pixel_put(t_graph *graph, int x, int y, int color);
+double	check_ray(t_struct *data, t_p *p, double ray_angle);
+
+// CHANGE POSITION //
+
+void	change_direction(t_struct *data, t_p *p, int key);
+void	change_position(t_struct *data, t_p *p, int key);
+int		check_next_pos(t_struct *d, t_p *p, int key);
+int		assign_next_pos(t_p *p, int key, char c);
+
+// ERRORS //
+
+void	ft_error_and_exit(char *str, t_struct *data);
+int		ft_close(t_struct *data);
+void	ft_free(char **tab);
 
 #endif
