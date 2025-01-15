@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 15:07:08 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:13:53 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,18 @@ int		ft_check_texture_file_duplicate(t_struct *data, char *s);
 
 // PARSER UTILS 3 //
 
+int		ft_is_valid_number(t_struct *data, char	*string, char *input, char c);
+int		ft_check_floor_values(t_struct *data, char *string);
+int		ft_check_ceiling_values(t_struct *data, char *string);
 int		ft_check_floor(t_struct *data, char *s);
 int		ft_check_ceiling(t_struct *data, char *s);
 
 // PARSER UTILS 4 //
 
+int		ft_check_whitespace_line(char **tab);
 int		ft_check_upper_wall(char *string);
-int		ft_check_whitespace_line(char **argv);
+int		ft_check_one_block(t_struct *data);
+int		ft_check_border(t_struct *data, int i);
 int		ft_check_cornered_by_walls(t_struct *data);
 
 // PARSER UTILS 5 //
@@ -109,15 +114,14 @@ void	ft_replace_characters(char **tab, char s, char c);
 // TOOLS 1 //
 
 char	*ft_get_path(char *string);
+char	*ft_strdup(char *string);
 void	ft_printf_tab(char **tab);
 int		ft_strncmp(char *s1, char *s2, int n);
 char	*ft_remove_space(char *string);
-char	*ft_strdup(char *string);
 
 // TOOLS 2 //
 
 char	*ft_fill_map(char *string);
-int		ft_check_one_block(t_struct *data);
 char	*ft_put_number_to_string(char *string, int n);
 int		ft_nb_arg(char **tab);
 
