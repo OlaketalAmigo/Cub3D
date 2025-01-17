@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils_5.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:30:02 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 12:05:21 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/17 13:01:23 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	ft_check_map_characters(t_struct *data, int i, int *count)
 			|| data->map[i][j] == 83 || data->map[i][j] == 87)
 		{
 			data->spawn_dir = (int)data->map[i][j];
-			data->spawn_x = i;
-			data->spawn_y = j;
+			data->spawn_x = j;
+			data->spawn_y = i;
 			(*count)++;
 		}
 		else if (data->map[i][j] != 32 && data->map[i][j] != 48

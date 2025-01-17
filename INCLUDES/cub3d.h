@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 12:22:26 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/17 14:14:02 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct data
 	int		end;
 	int		len;
 	double	fov;
-	int		ray_len;
+	double	ray_len;
 	int		sc_h;
 	int		sc_w;
 	int		map_h;
@@ -87,10 +87,9 @@ typedef struct data
 	int		spawn_x;
 	int		spawn_y;
 	int		spawn_dir;
-	int		player_x;
-	int		player_y;
-	int		player_x_dir;
-	int		player_y_dir;
+	double	player_x;
+	double	player_y;
+	double	player_x_dir;
 }	t_struct;
 
 // ERROR //

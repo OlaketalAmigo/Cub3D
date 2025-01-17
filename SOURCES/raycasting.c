@@ -20,11 +20,11 @@ void	render_vertical(t_struct *data, int x, int height)
 	while (y < data->sc_h)
 	{
 		if (y < start)
-			my_mlx_pixel_put(data, x, y, 14753280);
+			my_mlx_pixel_put(data, x, y, 1044480);
 		else if (y >= start && y < end)
-			my_mlx_pixel_put(data, x, y, 0x00FF00);
+			my_mlx_pixel_put(data, x, y, 4080);
 		else
-			my_mlx_pixel_put(data, x, y, 14443520);
+			my_mlx_pixel_put(data, x, y, 16711680);
 		y++;
 	}
 }
@@ -40,8 +40,8 @@ void	draw_collumn(t_struct *data, int x, double distance)
 double	check_ray(t_struct *data, double ray_angle)
 {
 	double	distance;
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 
 	distance = 0.0;
 	x = data->player_x + cos(ray_angle) * distance;
@@ -49,10 +49,13 @@ double	check_ray(t_struct *data, double ray_angle)
 	while (distance < data->ray_len && x < data->map_w && y < data->map_h
 		&& x >= 0 && y >= 0)
 	{
+		if ((int)x < data->map_w && (int)y < data->map_h)
+		{
+			if (data->map[(int)y][(int)x] == '1')
+				return (distance);
+		}
 		x = data->player_x + cos(ray_angle) * distance;
 		y = data->player_y + sin(ray_angle) * distance;
-		if (data->map[y][x] == '1')
-			return (distance);
 		distance = distance + 0.1;
 	}
 	return (-1);
@@ -60,20 +63,23 @@ double	check_ray(t_struct *data, double ray_angle)
 
 void	init_rays(t_struct *data)
 {
+	double	fov_radians;
 	double	distance;
-	double	angle;
+	double	ray_angle;
 	double	step;
 	int		x;
 
-	step = data->fov / (double)data->sc_w;
-	angle = data->player_x_dir - (data->fov / 2);
+	fov_radians = data->fov * (M_PI / 180);
+	step = fov_radians / (double)data->sc_w;
+	ray_angle = data->player_x_dir - (fov_radians/ 2);
 	x = 0;
-	while (x < data->sc_w)
+	while (x < data->sc_w && ray_angle < data->player_x_dir + (fov_radians / 2))
 	{
-		distance = check_ray(data, angle);
+		distance = check_ray(data, ray_angle);
 		if (distance != -1)
 			draw_collumn(data, x, distance);
-		angle = angle + step;
+		ray_angle = ray_angle + step;
 		x++;
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 }

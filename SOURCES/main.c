@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 12:30:02 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/17 15:07:27 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	deal_key(int key, t_struct *data)
 {
+	printf("key = %d\n", key);
 	if (key == ESCAPE)
 		ft_close(data);
 	else if (key == W || key == A || key == S || key == D)

@@ -2,19 +2,12 @@
 
 void	change_direction(t_struct *data, int key)
 {
-	double	tmp;
-
-	tmp = data->player_x_dir;
-	if (key == L_ARROW)
-	{
-		data->player_x_dir = data->player_x_dir * cos(0.1) - data->player_y_dir * sin(0.1);
-		data->player_y_dir = tmp * sin(0.1) + data->player_y_dir * cos(0.1);
-	}
-	else if (key == R_ARROW)
-	{
-		data->player_x_dir = data->player_x_dir * cos(-0.1) - data->player_y_dir * sin(-0.1);
-		data->player_y_dir = tmp * sin(-0.1) + data->player_y_dir * cos(-0.1);
-	}
+	if (key == R_ARROW)
+		data->player_x_dir = data->player_x_dir + 0.1;
+	else if (key == L_ARROW)
+		data->player_x_dir = data->player_x_dir - 0.1;
+	if (data->player_x_dir >= 2 * M_PI)
+		
 	mlx_destroy_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, data->sc_w, data->sc_h);
 	data->addr = mlx_get_data_addr(data->img,
@@ -27,24 +20,24 @@ int	assign_next_pos(t_struct *data, int key, char c)
 	if (c == 'x')
 	{
 		if (key == W)
-			return (data->player_x + data->player_x_dir);
+			return (data->player_x + cos(data->player_x_dir));
 		else if (key == A)
-			return (data->player_x - data->player_y_dir);
+			return (data->player_x - sin(data->player_x_dir));
 		else if (key == S)
-			return (data->player_x - data->player_x_dir);
+			return (data->player_x - cos(data->player_x_dir));
 		else if (key == D)
-			return (data->player_x + data->player_y_dir);
+			return (data->player_x + sin(data->player_x_dir));
 	}
 	else
 	{
 		if (key == W)
-			return (data->player_y + data->player_y_dir);
+			return (data->player_y + sin(data->player_x_dir));
 		else if (key == A)
-			return (data->player_y + data->player_x_dir);
+			return (data->player_y + cos(data->player_x_dir));
 		else if (key == S)
-			return (data->player_y - data->player_y_dir);
+			return (data->player_y - sin(data->player_x_dir));
 		else if (key == D)
-			return (data->player_y - data->player_x_dir);
+			return (data->player_y - cos(data->player_x_dir));
 	}
 	return (0);
 }
