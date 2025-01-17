@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 11:57:00 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/17 12:22:26 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,10 +183,6 @@ char	*ft_strtrim(char *s1, char *set);
 
 int		init_data(t_struct *data);
 int		graphic_init(t_struct *d);
-
-// INIT PLAYER //
-
-int		init_player(t_struct *data);
 
 // RAYCASTING //
 
