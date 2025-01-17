@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 11:46:40 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/17 12:30:55 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_close(t_struct *data)
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
+	free(data->mlx);
 	ft_free(data->file);
 	ft_free(data->map);
 	exit(EXIT_SUCCESS);

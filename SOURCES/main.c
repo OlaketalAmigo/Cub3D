@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 11:48:48 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/17 12:30:02 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	main(int argc, char **argv)
 	t_struct	data;
 
 	ft_parser(&data, argc, argv);
-	printf("Actual map is :\n");
-	ft_printf_tab(data.map);
+	// printf("Actual map is :\n");
+	// ft_printf_tab(data.map);
 	if (init_data(&data) == BAD)
 		ft_error_and_exit("Malloc error of data", &data);
 	// test_map(&data);	// Map 10X10 avec N au milieu

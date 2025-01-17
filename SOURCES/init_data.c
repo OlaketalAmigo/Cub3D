@@ -53,7 +53,6 @@ int	init_dir(t_struct *data, int dir)
 
 int	init_data(t_struct *data)
 {
-	data->map = NULL;
 	data->sc_h = 800;
 	data->sc_w = 1200;
 	data->fov = 72;
