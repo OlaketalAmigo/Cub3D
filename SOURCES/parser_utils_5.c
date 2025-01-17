@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:30:02 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 15:07:34 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/17 12:05:21 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,12 @@ int	ft_check_map_characters(t_struct *data, int i, int *count)
 	{
 		if (data->map[i][j] == 69 || data->map[i][j] == 78
 			|| data->map[i][j] == 83 || data->map[i][j] == 87)
+		{
+			data->spawn_dir = (int)data->map[i][j];
+			data->spawn_x = i;
+			data->spawn_y = j;
 			(*count)++;
+		}
 		else if (data->map[i][j] != 32 && data->map[i][j] != 48
 			&& data->map[i][j] != 49 && data->map[i][j] != 10)
 			return (BAD);
