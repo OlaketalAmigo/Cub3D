@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/16 12:25:29 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/17 11:46:40 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,25 @@
 
 int	ft_close(t_struct *data)
 {
-	mlx_destroy_image(data->graph->mlx, data->graph->img);
-	mlx_destroy_window(data->graph->mlx, data->graph->win);
-	mlx_destroy_display(data->graph->mlx);
-	free(data->graph->mlx);
-	free(data->graph);
+	mlx_destroy_image(data->mlx, data->img);
+	mlx_destroy_window(data->mlx, data->win);
+	mlx_destroy_display(data->mlx);
+	ft_free(data->file);
 	ft_free(data->map);
-	free(data->p);
-	free(data);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
 
 void	ft_print_error_and_exit(char *s)
 {
-	printf("Error : %s\n", s);
+	printf("Error\n%s\n", s);
 	exit(EXIT_FAILURE);
 }
 
 void	ft_error_and_exit(char *s, t_struct *data)
 {
-	if (data)
-	{
-		if (data->graph)
-		{
-			mlx_destroy_image(data->graph->mlx, data->graph->img);
-			mlx_destroy_window(data->graph->mlx, data->graph->win);
-			mlx_destroy_display(data->graph->mlx);
-			free(data->graph->mlx);
-			free(data->graph);
-		}
-		if (data->p)
-			free(data->p);
-		ft_free(data->map);
-		free(data);
-	}
-	printf("%s\n", s);
-	exit(EXIT_FAILURE);
-}
-
-
-void	ft_error_and_exit(char *s, t_struct *data)
-{
-	if (data)
-	{
-		if (data->graph)
-		{
-			mlx_destroy_image(data->graph->mlx, data->graph->img);
-			mlx_destroy_window(data->graph->mlx, data->graph->win);
-			mlx_destroy_display(data->graph->mlx);
-			free(data->graph->mlx);
-			free(data->graph);
-		}
-		if (data->p)
-			free(data->p);
-		ft_free(data->map);
-		free(data);
-	}
-	printf("%s\n", s);
+	ft_free(data->file);
+	ft_free(data->map);
+	printf("Error\n%s\n", s);
 	exit(EXIT_FAILURE);
 }

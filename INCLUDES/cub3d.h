@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 16:34:02 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/17 11:57:00 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,9 @@
 # define A 97
 # define S 115
 # define D 100
+# define ESCAPE 65307
 # define L_ARROW 65361
 # define R_ARROW 65363
-
-typedef struct s_p
-{
-	int		x_pos;
-	int		y_pos;
-	int		x_dir;
-	int		y_dir;
-}	t_p;
-
-typedef struct s_graphic
-{
-	char	*addr;
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		bpp;
-	int		length;
-	int		end;
-}	t_graph;
 
 # define YES 0
 # define NO 1
@@ -83,12 +65,19 @@ typedef struct data
 {
 	char	**file;
 	char	**map;
+	char	*addr;
 	int		floor_first;
 	int		floor_second;
 	int		floor_third;
 	int		ceiling_first;
 	int		ceiling_second;
 	int		ceiling_third;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int		bpp;
+	int		end;
+	int		len;
 	double	fov;
 	int		ray_len;
 	int		sc_h;
@@ -98,9 +87,10 @@ typedef struct data
 	int		spawn_x;
 	int		spawn_y;
 	int		spawn_dir;
-	t_graph	*graph;
-	t_p		*p;
-
+	int		player_x;
+	int		player_y;
+	int		player_x_dir;
+	int		player_y_dir;
 }	t_struct;
 
 // ERROR //
@@ -192,7 +182,7 @@ char	*ft_strtrim(char *s1, char *set);
 // INIT DATA //
 
 int		init_data(t_struct *data);
-int		graphic_init(t_graph **g, t_struct *d);
+int		graphic_init(t_struct *d);
 
 // INIT PLAYER //
 
@@ -200,18 +190,18 @@ int		init_player(t_struct *data);
 
 // RAYCASTING //
 
-void	init_rays(t_struct *data, t_p *p);
+void	init_rays(t_struct *data);
 void	draw_collumn(t_struct *data, int x, double distance);
 void	render_vertical(t_struct *data, int x, int height);
-void	my_mlx_pixel_put(t_graph *graph, int x, int y, int color);
-double	check_ray(t_struct *data, t_p *p, double ray_angle);
+void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
+double	check_ray(t_struct *data, double ray_angle);
 
 // CHANGE POSITION //
 
-void	change_direction(t_struct *data, t_p *p, int key);
-void	change_position(t_struct *data, t_p *p, int key);
-int		check_next_pos(t_struct *d, t_p *p, int key);
-int		assign_next_pos(t_p *p, int key, char c);
+void	change_direction(t_struct *data, int key);
+void	change_position(t_struct *data, int key);
+int		check_next_pos(t_struct *d, int key);
+int		assign_next_pos(t_struct *data, int key, char c);
 
 // ERRORS //
 

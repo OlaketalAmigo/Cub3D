@@ -1,10 +1,10 @@
 #include "cub3d.h"
 
-void	my_mlx_pixel_put(t_graph *graph, int x, int y, int color)
+void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = graph->addr + (y * graph->length + x * (graph->bpp / 8));
+	dst = data->addr + (y * data->len + x * (data->bpp / 8));
 	*(unsigned int *)dst = color;
 }
 
@@ -20,11 +20,11 @@ void	render_vertical(t_struct *data, int x, int height)
 	while (y < data->sc_h)
 	{
 		if (y < start)
-			my_mlx_pixel_put(data->graph, x, y, 14753280);
+			my_mlx_pixel_put(data, x, y, 14753280);
 		else if (y >= start && y < end)
-			my_mlx_pixel_put(data->graph, x, y, 0x00FF00);
+			my_mlx_pixel_put(data, x, y, 0x00FF00);
 		else
-			my_mlx_pixel_put(data->graph, x, y, 14443520);
+			my_mlx_pixel_put(data, x, y, 14443520);
 		y++;
 	}
 }
@@ -37,20 +37,20 @@ void	draw_collumn(t_struct *data, int x, double distance)
 	render_vertical(data, x, height);
 }
 
-double	check_ray(t_struct *data, t_p *p, double ray_angle)
+double	check_ray(t_struct *data, double ray_angle)
 {
 	double	distance;
 	int		x;
 	int		y;
 
 	distance = 0.0;
-	x = p->x_pos + cos(ray_angle) * distance;
-	y = p->y_pos + sin(ray_angle) * distance;
+	x = data->player_x + cos(ray_angle) * distance;
+	y = data->player_y + sin(ray_angle) * distance;
 	while (distance < data->ray_len && x < data->map_w && y < data->map_h
 		&& x >= 0 && y >= 0)
 	{
-		x = p->x_pos + cos(ray_angle) * distance;
-		y = p->y_pos + sin(ray_angle) * distance;
+		x = data->player_x + cos(ray_angle) * distance;
+		y = data->player_y + sin(ray_angle) * distance;
 		if (data->map[y][x] == '1')
 			return (distance);
 		distance = distance + 0.1;
@@ -58,7 +58,7 @@ double	check_ray(t_struct *data, t_p *p, double ray_angle)
 	return (-1);
 }
 
-void	init_rays(t_struct *data, t_p *p)
+void	init_rays(t_struct *data)
 {
 	double	distance;
 	double	angle;
@@ -66,12 +66,11 @@ void	init_rays(t_struct *data, t_p *p)
 	int		x;
 
 	step = data->fov / (double)data->sc_w;
-	angle = p->x_dir - (data->fov / 2);
+	angle = data->player_x_dir - (data->fov / 2);
 	x = 0;
-	printf("sc_w = %d\n", data->sc_w);
 	while (x < data->sc_w)
 	{
-		distance = check_ray(data, p, angle);
+		distance = check_ray(data, angle);
 		if (distance != -1)
 			draw_collumn(data, x, distance);
 		angle = angle + step;
