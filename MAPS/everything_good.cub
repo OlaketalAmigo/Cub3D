@@ -1,7 +1,7 @@
-NO ./TEXTURES/pog
-SO ./TEXTURES/pogito
-WE ./TEXTURES/pogitoto
-EA ./TEXTURES/pogitomax
+NO ./TEXTURES/Cannabis.xpm
+SO ./TEXTURES/Blackhole.xpm
+WE ./TEXTURES/Sunset.xpm
+EA ./TEXTURES/Jul.xpm
 
 F 255,100,0
 C 255,30,0

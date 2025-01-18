@@ -5,6 +5,9 @@ int	graphic_init(t_struct *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (BAD);
+	printf("data->mlx = %p\n", data->mlx);
+	printf("data->sc_w = %d\n", data->sc_w);
+	printf("data->sc_h = %d\n", data->sc_h);
 	data->win = mlx_new_window(data->mlx, data->sc_w, data->sc_h, "Cub3D");
 	if (!data->win)
 		return (mlx_destroy_display(data->mlx), BAD);
@@ -13,7 +16,7 @@ int	graphic_init(t_struct *data)
 		return (mlx_destroy_window(data->mlx, data->win),
 			mlx_destroy_display(data->mlx), BAD);
 	data->addr = mlx_get_data_addr(data->img, &data->bpp,
-		&data->len, &data->end);
+			&data->len, &data->end);
 	if (!data->addr)
 		return (mlx_destroy_image(data->mlx, data->img),
 			mlx_destroy_window(data->mlx, data->win),

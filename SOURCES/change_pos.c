@@ -25,7 +25,7 @@ void	assign_next_pos(double *x, double *y, int key, double dir)
 		*x = 0.1 * t_x;
 		*y = 0.1 * t_y;
 	}
-	else if (key == A)
+	else if (key == D)
 	{
 		*x = 0.1 * -t_y;
 		*y = 0.1 * t_x;
@@ -35,7 +35,7 @@ void	assign_next_pos(double *x, double *y, int key, double dir)
 		*x = -0.1 * t_x;
 		*y = -0.1 * t_y;
 	}
-	else if (key == D)
+	else if (key == A)
 	{
 		*x = 0.1 * t_y;
 		*y = -0.1 * t_x;
@@ -46,8 +46,8 @@ int	check_next_pos(t_struct *d, int key)
 {
 	double	t_x;
 	double	t_y;
-	double	x;
-	double	y;
+	int		x; // a repasser en double plus tard avec la nouvelle map
+	int		y; // bis
 
 	assign_next_pos(&t_x, &t_y, key, d->player_x_dir);
 	t_x = d->player_x + t_x;

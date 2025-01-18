@@ -6,11 +6,34 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/18 18:00:28 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/18 18:01:58 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_init_mlx(t_struct *data)
+{
+	int	i;
+	data->north_img = mlx_xpm_file_to_image(data->mlx, data->path_to_N,
+			&data->img_w, &data->img_h);
+	data->south_img = mlx_xpm_file_to_image(data->mlx, data->path_to_S,
+			&data->img_w, &data->img_h);
+	data->east_img = mlx_xpm_file_to_image(data->mlx, data->path_to_E,
+			&data->img_w, &data->img_h);
+	data->west_img = mlx_xpm_file_to_image(data->mlx, data->path_to_W,
+			&data->img_w, &data->img_h);
+	data->height = malloc (4 * ft_nb_arg(data->map));
+	if (data->height)
+	{
+		i = 0;
+		while (data->map[i])
+		{
+			data->height[i] = ft_strlen(data->map[i]);
+			i++;
+		}
+	}
+}
 
 int	deal_key(int key, t_struct *data)
 {
@@ -23,40 +46,16 @@ int	deal_key(int key, t_struct *data)
 	return (0);
 }
 
-void	test_map(t_struct *data)
-{
-	int		i;
-
-	i = 0;
-	data->map = malloc(sizeof(char *) * (10 + 1));
-	while (i < 10)
-	{
-		if (i == 0 || i == 9)
-			data->map[i] = ft_strdup("1111111111");
-		else if (i == 5)
-			data->map[i] = ft_strdup("10000N0001");
-		else
-			data->map[i] = ft_strdup("1000000001");
-		i++;
-	}
-	data->map[i] = NULL;
-	data->map_h = 10;
-	data->map_w = 10;
-	data->spawn_x = 5;
-	data->spawn_y = 5;
-	data->spawn_dir = 'N';
-}
-
 int	main(int argc, char **argv)
 {
 	t_struct	data;
 
+	data.img_h = 48;
+	data.img_w = 48;
 	ft_parser(&data, argc, argv);
-	// printf("Actual map is :\n");
-	// ft_printf_tab(data.map);
 	if (init_data(&data) == BAD)
-		ft_error_and_exit("Malloc error of data", &data);
-	// test_map(&data);	// Map 10X10 avec N au milieu
+		ft_error_and_exit(ERROR_MALLOC_FAILED, &data);
+	ft_init_mlx(&data);
 	init_rays(&data);
 	mlx_key_hook(data.win, deal_key, &data);
 	mlx_hook(data.win, 17, 1L << 17, ft_close, &data);

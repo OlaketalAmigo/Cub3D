@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/18 18:00:18 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/18 18:01:45 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,17 @@ typedef struct data
 	char	**file;
 	char	**map;
 	char	*addr;
+	int		img_h;
+	int		img_w;
+	int		*height;
+	char	*path_to_N;
+	char	*path_to_S;
+	char	*path_to_W;
+	char	*path_to_E;
+	void	*north_img;
+	void	*south_img;
+	void	*west_img;
+	void	*east_img;
 	int		floor_first;
 	int		floor_second;
 	int		floor_third;

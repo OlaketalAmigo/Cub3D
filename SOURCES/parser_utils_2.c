@@ -1,16 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parser_utils_2.c                                   :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 11:23:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/15 11:23:21 by tfauve-p         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
+
+void	ft_save_path(t_struct *data, char *s, char *to_open)
+{
+	if (ft_strncmp("NO", s, 2) == GOOD)
+		data->path_to_N = ft_strdup(to_open);
+	if (ft_strncmp("SO", s, 2) == GOOD)
+		data->path_to_S = ft_strdup(to_open);
+	if (ft_strncmp("WE", s, 2) == GOOD)
+		data->path_to_W = ft_strdup(to_open);
+	if (ft_strncmp("EA", s, 2) == GOOD)
+		data->path_to_E = ft_strdup(to_open);
+}
 
 int	ft_check_texture_file_opening(t_struct *data, char *s)
 {
@@ -30,6 +30,7 @@ int	ft_check_texture_file_opening(t_struct *data, char *s)
 			j = open(to_open, O_RDONLY);
 			if (j == -1)
 				return (free(to_open), BAD);
+			ft_save_path(data, s, to_open);
 			close(j);
 			return (free(to_open), GOOD);
 		}
