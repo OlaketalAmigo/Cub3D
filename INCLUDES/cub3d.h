@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 14:14:02 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/18 18:00:18 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ double	check_ray(t_struct *data, double ray_angle);
 void	change_direction(t_struct *data, int key);
 void	change_position(t_struct *data, int key);
 int		check_next_pos(t_struct *d, int key);
-int		assign_next_pos(t_struct *data, int key, char c);
+void	assign_next_pos(double *x, double *y, int key, double dir);
 
 // ERRORS //
 

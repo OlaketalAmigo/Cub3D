@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 15:07:27 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/18 18:00:28 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	deal_key(int key, t_struct *data)
 {
-	printf("key = %d\n", key);
 	if (key == ESCAPE)
 		ft_close(data);
 	else if (key == W || key == A || key == S || key == D)
