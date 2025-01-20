@@ -8,11 +8,11 @@ void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	render_vertical(t_struct *data, int x, int height)
+void	render_vertical(t_struct *data, int x, float height)
 {
-	int	y;
-	int	start;
-	int	end;
+	double	start;
+	double	end;
+	int		y;
 
 	start = (data->sc_h - height) / 2;
 	end = start + height;
@@ -31,9 +31,11 @@ void	render_vertical(t_struct *data, int x, int height)
 
 void	draw_collumn(t_struct *data, int x, double distance)
 {
-	int	height;
+	float	height;
 
 	height = data->sc_h / distance;
+	if (distance <= 0)
+		height = data->sc_h;
 	render_vertical(data, x, height);
 }
 
@@ -44,19 +46,16 @@ double	check_ray(t_struct *data, double ray_angle)
 	double	y;
 
 	distance = 0.0;
-	x = data->player_x + cos(ray_angle) * distance;
-	y = data->player_y + sin(ray_angle) * distance;
-	while (distance < data->ray_len && x < data->map_w && y < data->map_h
-		&& x >= 0 && y >= 0)
+	while (distance < data->ray_len)
 	{
-		if ((int)x < data->map_w && (int)y < data->map_h)
-		{
-			if (data->map[(int)y][(int)x] == '1')
-				return (distance);
-		}
 		x = data->player_x + cos(ray_angle) * distance;
 		y = data->player_y + sin(ray_angle) * distance;
-		distance = distance + 0.1;
+		if ((int)x < data->height[(int)y] && (int)y < data->map_h)
+		{
+			if (data->map[(int)y][(int)x] == '1')
+				return (distance * cos(ray_angle - data->player_x_dir));
+		}
+		distance = distance + 0.01;
 	}
 	return (-1);
 }
@@ -71,7 +70,7 @@ void	init_rays(t_struct *data)
 
 	fov_radians = data->fov * (M_PI / 180);
 	step = fov_radians / (double)data->sc_w;
-	ray_angle = data->player_x_dir - (fov_radians/ 2);
+	ray_angle = data->player_x_dir - (fov_radians / 2);
 	x = 0;
 	while (x < data->sc_w && ray_angle < data->player_x_dir + (fov_radians / 2))
 	{

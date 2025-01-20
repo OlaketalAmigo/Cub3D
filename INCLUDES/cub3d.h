@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/18 18:01:45 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/20 06:18:05 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ typedef struct data
 	int		img_h;
 	int		img_w;
 	int		*height;
-	char	*path_to_N;
-	char	*path_to_S;
-	char	*path_to_W;
-	char	*path_to_E;
+	char	*path_to_n;
+	char	*path_to_s;
+	char	*path_to_w;
+	char	*path_to_e;
 	void	*north_img;
 	void	*south_img;
 	void	*west_img;
@@ -89,6 +89,12 @@ typedef struct data
 	int		bpp;
 	int		end;
 	int		len;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		l_arrow;
+	int		r_arrow;
 	double	fov;
 	double	ray_len;
 	int		sc_h;
@@ -198,7 +204,7 @@ int		graphic_init(t_struct *d);
 
 void	init_rays(t_struct *data);
 void	draw_collumn(t_struct *data, int x, double distance);
-void	render_vertical(t_struct *data, int x, int height);
+void	render_vertical(t_struct *data, int x, float height);
 void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
 double	check_ray(t_struct *data, double ray_angle);
 

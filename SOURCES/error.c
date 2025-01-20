@@ -12,10 +12,10 @@ int	ft_close(t_struct *data)
 	free(data->mlx);
 	ft_free(data->file);
 	ft_free(data->map);
-	free(data->path_to_N);
-	free(data->path_to_S);
-	free(data->path_to_W);
-	free(data->path_to_E);
+	free(data->path_to_n);
+	free(data->path_to_s);
+	free(data->path_to_w);
+	free(data->path_to_e);
 	free(data->height);
 	exit(EXIT_SUCCESS);
 	return (0);

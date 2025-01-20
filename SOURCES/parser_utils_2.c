@@ -3,13 +3,13 @@
 void	ft_save_path(t_struct *data, char *s, char *to_open)
 {
 	if (ft_strncmp("NO", s, 2) == GOOD)
-		data->path_to_N = ft_strdup(to_open);
+		data->path_to_n = ft_strdup(to_open);
 	if (ft_strncmp("SO", s, 2) == GOOD)
-		data->path_to_S = ft_strdup(to_open);
+		data->path_to_s = ft_strdup(to_open);
 	if (ft_strncmp("WE", s, 2) == GOOD)
-		data->path_to_W = ft_strdup(to_open);
+		data->path_to_w = ft_strdup(to_open);
 	if (ft_strncmp("EA", s, 2) == GOOD)
-		data->path_to_E = ft_strdup(to_open);
+		data->path_to_e = ft_strdup(to_open);
 }
 
 int	ft_check_texture_file_opening(t_struct *data, char *s)
