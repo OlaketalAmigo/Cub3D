@@ -1,10 +1,13 @@
-VALGRIND RESET IMAGE
-TEST MALLOC
-CHANGER LE RAYCASTING POUR LES TEXTURES
+A PA TAIXTOUR (SOUCIS DANS LA DERNIERE FONCTION)
+
+
 
 
 ERREUR MLX NEW WINDOW AU DEMARRAGE (ATTENTION TRES MYSTIQUE)
-
+|
+|
+|
+⌄
 Syscall param writev(vector[0]) points to uninitialised byte(s)
 ==9791==    at 0x4BCE864: writev (writev.c:26)
 ==9791==    by 0x4CC5ACA: ??? (in /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0)

@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/20 06:18:05 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/21 02:27:51 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ typedef struct data
 	void	*south_img;
 	void	*west_img;
 	void	*east_img;
+	char	*n_data;
+	char	*s_data;
+	char	*w_data;
+	char	*e_data;
+	int		tex_x;
+	int		tex_y;
+	char	wall_dir;
 	int		floor_first;
 	int		floor_second;
 	int		floor_third;
@@ -203,10 +210,10 @@ int		graphic_init(t_struct *d);
 // RAYCASTING //
 
 void	init_rays(t_struct *data);
-void	draw_collumn(t_struct *data, int x, double distance);
-void	render_vertical(t_struct *data, int x, float height);
+void	draw_collumn(t_struct *data, int x, double distance, double wall_hit);
+void	render_vertical(t_struct *data, int x, float height, double wall_hit);
 void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
-double	check_ray(t_struct *data, double ray_angle);
+double	check_ray(t_struct *data, double ray_angle, double *wall_hit);
 
 // CHANGE POSITION //
 

@@ -3,9 +3,13 @@
 void	change_direction(t_struct *data, int key)
 {
 	if (key == R_ARROW)
-		data->player_x_dir = data->player_x_dir + 0.1;
+		data->player_x_dir = data->player_x_dir + 0.15;
 	else if (key == L_ARROW)
-		data->player_x_dir = data->player_x_dir - 0.1;
+		data->player_x_dir = data->player_x_dir - 0.15;
+	if (data->player_x_dir < 0)
+		data->player_x_dir = data->player_x_dir + 2 * M_PI;
+	else if (data->player_x_dir > 2 * M_PI)
+		data->player_x_dir = data->player_x_dir - 2 * M_PI;
 	mlx_destroy_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, data->sc_w, data->sc_h);
 	data->addr = mlx_get_data_addr(data->img,

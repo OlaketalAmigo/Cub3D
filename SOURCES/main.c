@@ -6,11 +6,23 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/20 06:24:29 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/21 02:32:17 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	ft_get_textures(t_struct *data)
+{
+	data->n_data = mlx_get_data_addr(data->north_img,
+			&data->bpp, &data->len, &data->end);
+	data->s_data = mlx_get_data_addr(data->south_img,
+			&data->bpp, &data->len, &data->end);
+	data->w_data = mlx_get_data_addr(data->west_img,
+			&data->bpp, &data->len, &data->end);
+	data->e_data = mlx_get_data_addr(data->east_img,
+			&data->bpp, &data->len, &data->end);
+}
 
 void	ft_init_mlx(t_struct *data)
 {
@@ -24,6 +36,7 @@ void	ft_init_mlx(t_struct *data)
 			&data->img_w, &data->img_h);
 	data->west_img = mlx_xpm_file_to_image(data->mlx, data->path_to_w,
 			&data->img_w, &data->img_h);
+	ft_get_textures(data);
 	data->height = malloc (4 * ft_nb_arg(data->map));
 	if (data->height)
 	{
