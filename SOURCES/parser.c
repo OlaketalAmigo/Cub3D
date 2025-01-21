@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:30 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/16 12:26:27 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/18 18:02:25 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	ft_set_up_final_map(t_struct *data)
 	char	**tmp;
 
 	i = ft_nb_arg(data->map);
+	data->map_w = 0;
 	if (i != 0)
 	{
 		tmp = malloc (8 * (i + 1));
@@ -102,11 +103,14 @@ void	ft_set_up_final_map(t_struct *data)
 		while (data->map[j])
 		{
 			tmp[j] = ft_strtrim(data->map[j], "\n");
+			if (ft_strlen(tmp[j]) > data->map_w)
+				data->map_w = ft_strlen(tmp[j]);
 			j++;
 		}
 		tmp[j] = NULL;
 		ft_free(data->map);
 		data->map = tmp;
+		data->map_h = i;
 	}
 }
 

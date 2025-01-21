@@ -1,25 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 11:23:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 12:30:55 by gprunet          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "cub3d.h"
 
 int	ft_close(t_struct *data)
 {
+	mlx_destroy_image(data->mlx, data->north_img);
+	mlx_destroy_image(data->mlx, data->south_img);
+	mlx_destroy_image(data->mlx, data->west_img);
+	mlx_destroy_image(data->mlx, data->east_img);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	ft_free(data->file);
 	ft_free(data->map);
+	free(data->path_to_n);
+	free(data->path_to_s);
+	free(data->path_to_w);
+	free(data->path_to_e);
+	free(data->height);
 	exit(EXIT_SUCCESS);
 	return (0);
 }

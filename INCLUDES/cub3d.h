@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 12:22:26 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/01/21 02:27:51 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,24 @@ typedef struct data
 	char	**file;
 	char	**map;
 	char	*addr;
+	int		img_h;
+	int		img_w;
+	int		*height;
+	char	*path_to_n;
+	char	*path_to_s;
+	char	*path_to_w;
+	char	*path_to_e;
+	void	*north_img;
+	void	*south_img;
+	void	*west_img;
+	void	*east_img;
+	char	*n_data;
+	char	*s_data;
+	char	*w_data;
+	char	*e_data;
+	int		tex_x;
+	int		tex_y;
+	char	wall_dir;
 	int		floor_first;
 	int		floor_second;
 	int		floor_third;
@@ -78,8 +96,14 @@ typedef struct data
 	int		bpp;
 	int		end;
 	int		len;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
+	int		l_arrow;
+	int		r_arrow;
 	double	fov;
-	int		ray_len;
+	double	ray_len;
 	int		sc_h;
 	int		sc_w;
 	int		map_h;
@@ -87,10 +111,9 @@ typedef struct data
 	int		spawn_x;
 	int		spawn_y;
 	int		spawn_dir;
-	int		player_x;
-	int		player_y;
-	int		player_x_dir;
-	int		player_y_dir;
+	double	player_x;
+	double	player_y;
+	double	player_x_dir;
 }	t_struct;
 
 // ERROR //
@@ -187,17 +210,17 @@ int		graphic_init(t_struct *d);
 // RAYCASTING //
 
 void	init_rays(t_struct *data);
-void	draw_collumn(t_struct *data, int x, double distance);
-void	render_vertical(t_struct *data, int x, int height);
+void	draw_collumn(t_struct *data, int x, double distance, double wall_hit);
+void	render_vertical(t_struct *data, int x, float height, double wall_hit);
 void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
-double	check_ray(t_struct *data, double ray_angle);
+double	check_ray(t_struct *data, double ray_angle, double *wall_hit);
 
 // CHANGE POSITION //
 
 void	change_direction(t_struct *data, int key);
 void	change_position(t_struct *data, int key);
 int		check_next_pos(t_struct *d, int key);
-int		assign_next_pos(t_struct *data, int key, char c);
+void	assign_next_pos(double *x, double *y, int key, double dir);
 
 // ERRORS //
 

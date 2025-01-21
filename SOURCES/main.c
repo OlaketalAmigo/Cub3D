@@ -3,63 +3,125 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/17 12:30:02 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/01/21 02:32:17 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	deal_key(int key, t_struct *data)
+void	ft_get_textures(t_struct *data)
 {
-	if (key == ESCAPE)
-		ft_close(data);
-	else if (key == W || key == A || key == S || key == D)
-		change_position(data, key);
-	else if (key == L_ARROW || key == R_ARROW)
-		change_direction(data, key);
+	data->n_data = mlx_get_data_addr(data->north_img,
+			&data->bpp, &data->len, &data->end);
+	data->s_data = mlx_get_data_addr(data->south_img,
+			&data->bpp, &data->len, &data->end);
+	data->w_data = mlx_get_data_addr(data->west_img,
+			&data->bpp, &data->len, &data->end);
+	data->e_data = mlx_get_data_addr(data->east_img,
+			&data->bpp, &data->len, &data->end);
+}
+
+void	ft_init_mlx(t_struct *data)
+{
+	int	i;
+
+	data->north_img = mlx_xpm_file_to_image(data->mlx, data->path_to_n,
+			&data->img_w, &data->img_h);
+	data->south_img = mlx_xpm_file_to_image(data->mlx, data->path_to_s,
+			&data->img_w, &data->img_h);
+	data->east_img = mlx_xpm_file_to_image(data->mlx, data->path_to_e,
+			&data->img_w, &data->img_h);
+	data->west_img = mlx_xpm_file_to_image(data->mlx, data->path_to_w,
+			&data->img_w, &data->img_h);
+	ft_get_textures(data);
+	data->height = malloc (4 * ft_nb_arg(data->map));
+	if (data->height)
+	{
+		i = 0;
+		while (data->map[i])
+		{
+			data->height[i] = ft_strlen(data->map[i]);
+			i++;
+		}
+	}
+}
+
+int	key_release(int key, t_struct *data)
+{
+	if (key == W)
+		data->w = NO;
+	else if (key == A)
+		data->a = NO;
+	else if (key == S)
+		data->s = NO;
+	else if (key == D)
+		data->d = NO;
+	else if (key == L_ARROW)
+		data->l_arrow = NO;
+	else if (key == R_ARROW)
+		data->r_arrow = NO;
 	return (0);
 }
 
-void	test_map(t_struct *data)
+int	key_press(int key, t_struct *data)
 {
-	int		i;
+	if (key == ESCAPE)
+		ft_close(data);
+	if (key == W)
+		data->w = YES;
+	else if (key == A)
+		data->a = YES;
+	else if (key == S)
+		data->s = YES;
+	else if (key == D)
+		data->d = YES;
+	else if (key == L_ARROW)
+		data->l_arrow = YES;
+	else if (key == R_ARROW)
+		data->r_arrow = YES;
+	return (0);
+}
 
-	i = 0;
-	data->map = malloc(sizeof(char *) * (10 + 1));
-	while (i < 10)
-	{
-		if (i == 0 || i == 9)
-			data->map[i] = ft_strdup("1111111111");
-		else if (i == 5)
-			data->map[i] = ft_strdup("10000N0001");
-		else
-			data->map[i] = ft_strdup("1000000001");
-		i++;
-	}
-	data->map[i] = NULL;
-	data->map_h = 10;
-	data->map_w = 10;
-	data->spawn_x = 5;
-	data->spawn_y = 5;
-	data->spawn_dir = 'N';
+int	game_loop(t_struct *data)
+{
+	if (data->w == YES)
+		change_position(data, W);
+	if (data->a == YES)
+		change_position(data, A);
+	if (data->s == YES)
+		change_position(data, S);
+	if (data->d == YES)
+		change_position(data, D);
+	if (data->l_arrow == YES)
+		change_direction(data, L_ARROW);
+	if (data->r_arrow == YES)
+		change_direction(data, R_ARROW);
+	mlx_destroy_image(data->mlx, data->img);
+	data->img = mlx_new_image(data->mlx, data->sc_w, data->sc_h);
+	data->addr = mlx_get_data_addr(data->img,
+			&data->bpp, &data->len, &data->end);
+	init_rays(data);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_struct	data;
 
+	data.img_h = 48;
+	data.img_w = 48;
 	ft_parser(&data, argc, argv);
-	// printf("Actual map is :\n");
-	// ft_printf_tab(data.map);
 	if (init_data(&data) == BAD)
-		ft_error_and_exit("Malloc error of data", &data);
-	// test_map(&data);	// Map 10X10 avec N au milieu
+		ft_error_and_exit(ERROR_MALLOC_FAILED, &data);
+	ft_init_mlx(&data);
 	init_rays(&data);
-	mlx_key_hook(data.win, deal_key, &data);
+	mlx_hook(data.win, 2, 1L << 0, key_press, &data);
+	mlx_hook(data.win, 3, 1L << 1, key_release, &data);
 	mlx_hook(data.win, 17, 1L << 17, ft_close, &data);
+	mlx_loop_hook(data.mlx, game_loop, &data);
 	mlx_loop(data.mlx);
 	return (0);
 }
