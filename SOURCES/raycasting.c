@@ -8,12 +8,13 @@ void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	apply_texture(t_struct *d, int x, int y, double pos) // PAS FINI
+void	apply_texture(t_struct *d, int x, int y, double pos)
 {
-	char				*tex;
-	unsigned int		color;
+	char	*tex;
+	int		color;
+	int		offset;
 
-	d->tex_y = (int)pos & (d->img_h - 1); // BINAIRE QUI NOUS DONNE SUR QUELLE RANGEE LA TEXTURE SE TROUVE
+	d->tex_y = (int)pos % d->img_h;
 	if (d->tex_x < 0)
 		d->tex_x = 0;
 	else if (d->tex_x >= d->img_w)
@@ -24,13 +25,20 @@ void	apply_texture(t_struct *d, int x, int y, double pos) // PAS FINI
 		tex = d->s_data;
 	else if (d->wall_dir == 'W')
 		tex = d->w_data;
-	else
+	else if (d->wall_dir == 'E')
 		tex = d->e_data;
-	color = tex[d->tex_y * d->img_w + d->tex_x];
+	else
+		return ;
+	if (d->tex_y < 0 || d->tex_y >= d->img_h)
+		return ;
+	offset = (d->tex_y * d->img_w + d->tex_x) * (d->bpp / 8);
+	if (offset < 0 || offset >= d->img_h * d->len)
+		return ;
+	color = *(unsigned int *)(tex + offset);
 	my_mlx_pixel_put(d, x, y, color);
 }
 
-void	render_vertical(t_struct *data, int x, float height, double wall_hit) // CA NORMALEMENT C BON
+void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 {
 	double	start;
 	double	end;
@@ -71,17 +79,21 @@ int	get_wall_dir(t_struct *data, double x, double y)
 {
 	double	delta_x;
 	double	delta_y;
+	double	epsilon;
 
 	delta_x = x - (int)x;
 	delta_y = y - (int)y;
-	if (delta_y < 1e-6)
-		data->wall_dir = 'N';
-	else if (delta_y > 1 - 1e-6)
+	epsilon = 0.01;
+	if (delta_y <= epsilon)
 		data->wall_dir = 'S';
-	else if (delta_x < 1e-6)
+	else if (delta_y >= 1 - epsilon)
+		data->wall_dir = 'N';
+	else if (delta_x <= epsilon)
+		data->wall_dir = 'E';
+	else if (delta_x >= 1 - epsilon)
 		data->wall_dir = 'W';
 	else
-		data->wall_dir = 'E';
+		data->wall_dir = '0';
 	return (1);
 }
 
@@ -100,7 +112,7 @@ double	check_ray(t_struct *data, double ray_angle, double *wall_hit)
 		{
 			if (data->map[(int)y][(int)x] == '1' && get_wall_dir(data, x, y))
 			{
-				if (cos(ray_angle) > sin(ray_angle))
+				if (fabs(cos(ray_angle)) > fabs(sin(ray_angle)))
 					*wall_hit = x - (int)x;
 				else
 					*wall_hit = y - (int)y;

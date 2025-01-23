@@ -52,8 +52,8 @@ int	init_data(t_struct *data)
 	data->sc_w = 1200;
 	data->fov = 72 * (M_PI / 180);
 	data->ray_len = 30;
-	data->player_x = data->spawn_x;
-	data->player_y = data->spawn_y;
+	data->player_x = data->spawn_x + 0.5;
+	data->player_y = data->spawn_y + 0.5;
 	data->w = NO;
 	data->a = NO;
 	data->s = NO;

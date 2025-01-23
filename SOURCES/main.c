@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:17 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/21 02:32:17 by hehe             ###   ########.fr       */
+/*   Updated: 2025/01/23 19:51:02 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_get_textures(t_struct *data)
 			&data->bpp, &data->len, &data->end);
 	data->e_data = mlx_get_data_addr(data->east_img,
 			&data->bpp, &data->len, &data->end);
+	if (!data->n_data || !data->s_data || !data->w_data || !data->e_data)
+		ft_error_and_exit("ERROR_TEXTURE_FAILED", data);
 }
 
 void	ft_init_mlx(t_struct *data)
