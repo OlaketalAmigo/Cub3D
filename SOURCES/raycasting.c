@@ -15,20 +15,27 @@ void	apply_texture(t_struct *d, int x, int y, double pos)
 	int		offset;
 
 	d->tex_y = (int)pos % d->img_h;
+	// if (d->tex_x != 47)
+	// {
+	// 	printf("tex_y = %d\n", d->tex_y);
+	// 	printf("tex_x = %d\n", d->tex_x);
+	// }
 	if (d->tex_x < 0)
 		d->tex_x = 0;
 	else if (d->tex_x >= d->img_w)
 		d->tex_x = d->img_w - 1;
+	if (d->tex_y < 0)
+		d->tex_y = 0;
+	else if (d->tex_y >= d->img_h)
+		d->tex_y = d->img_h - 1;
 	if (d->wall_dir == 'N')
 		tex = d->n_data;
 	else if (d->wall_dir == 'S')
 		tex = d->s_data;
 	else if (d->wall_dir == 'W')
 		tex = d->w_data;
-	else if (d->wall_dir == 'E')
-		tex = d->e_data;
 	else
-		return ;
+		tex = d->e_data;
 	if (d->tex_y < 0 || d->tex_y >= d->img_h)
 		return ;
 	offset = (d->tex_y * d->img_w + d->tex_x) * (d->bpp / 8);
@@ -72,6 +79,8 @@ void	draw_collumn(t_struct *data, int x, double distance, double wall_hit)
 	height = data->sc_h / distance;
 	if (distance <= 0)
 		height = data->sc_h;
+	if (height < 1)
+		height = 1;
 	render_vertical(data, x, height, wall_hit);
 }
 
@@ -83,17 +92,15 @@ int	get_wall_dir(t_struct *data, double x, double y)
 
 	delta_x = x - (int)x;
 	delta_y = y - (int)y;
-	epsilon = 0.01;
+	epsilon = 0.005;
 	if (delta_y <= epsilon)
 		data->wall_dir = 'S';
 	else if (delta_y >= 1 - epsilon)
 		data->wall_dir = 'N';
 	else if (delta_x <= epsilon)
 		data->wall_dir = 'E';
-	else if (delta_x >= 1 - epsilon)
-		data->wall_dir = 'W';
 	else
-		data->wall_dir = '0';
+		data->wall_dir = 'W';
 	return (1);
 }
 
