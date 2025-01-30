@@ -15,11 +15,6 @@ void	apply_texture(t_struct *d, int x, int y, double pos)
 	int		offset;
 
 	d->tex_y = (int)pos % d->img_h;
-	// if (d->tex_x != 47)
-	// {
-	// 	printf("tex_y = %d\n", d->tex_y);
-	// 	printf("tex_x = %d\n", d->tex_x);
-	// }
 	if (d->tex_x < 0)
 		d->tex_x = 0;
 	else if (d->tex_x >= d->img_w)
@@ -36,10 +31,8 @@ void	apply_texture(t_struct *d, int x, int y, double pos)
 		tex = d->w_data;
 	else
 		tex = d->e_data;
-	if (d->tex_y < 0 || d->tex_y >= d->img_h)
-		return ;
 	offset = (d->tex_y * d->img_w + d->tex_x) * (d->bpp / 8);
-	if (offset < 0 || offset >= d->img_h * d->len)
+	if (offset < 0 || offset >= d->img_h * d->img_w * (d->bpp / 8))
 		return ;
 	color = *(unsigned int *)(tex + offset);
 	my_mlx_pixel_put(d, x, y, color);
@@ -55,7 +48,8 @@ void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 	end = start + height;
 	step = (double)data->img_h / height;
 	double (pos) = 0;
-	data->tex_x = (int)(wall_hit * (double)data->img_w);
+	wall_hit = fmod(wall_hit, 1.0);
+	data->tex_x = (int)(wall_hit * data->img_w);
 	int (y) = 0;
 	while (y < data->sc_h)
 	{
@@ -84,24 +78,27 @@ void	draw_collumn(t_struct *data, int x, double distance, double wall_hit)
 	render_vertical(data, x, height, wall_hit);
 }
 
-int	get_wall_dir(t_struct *data, double x, double y)
+void	get_wall_dir(t_struct *data, double x, double y, double side)
 {
 	double	delta_x;
 	double	delta_y;
-	double	epsilon;
 
-	delta_x = x - (int)x;
-	delta_y = y - (int)y;
-	epsilon = 0.005;
-	if (delta_y <= epsilon)
-		data->wall_dir = 'S';
-	else if (delta_y >= 1 - epsilon)
-		data->wall_dir = 'N';
-	else if (delta_x <= epsilon)
-		data->wall_dir = 'E';
+	delta_x = x - data->player_x;
+	delta_y = y - data->player_y;
+	if (side == (y - (int)y))
+	{
+		if (delta_x > 0)
+			data->wall_dir = 'E';
+		else
+			data->wall_dir = 'W';
+	}
 	else
-		data->wall_dir = 'W';
-	return (1);
+	{
+		if (delta_y > 0)
+			data->wall_dir = 'S';
+		else
+			data->wall_dir = 'N';
+	}
 }
 
 double	check_ray(t_struct *data, double ray_angle, double *wall_hit)
@@ -117,12 +114,12 @@ double	check_ray(t_struct *data, double ray_angle, double *wall_hit)
 		y = data->player_y + sin(ray_angle) * distance;
 		if ((int)x < data->height[(int)y] && (int)y < data->map_h)
 		{
-			if (data->map[(int)y][(int)x] == '1' && get_wall_dir(data, x, y))
+			if (data->map[(int)y][(int)x] == '1')
 			{
+				*wall_hit = x - (int)x;
 				if (fabs(cos(ray_angle)) > fabs(sin(ray_angle)))
-					*wall_hit = x - (int)x;
-				else
 					*wall_hit = y - (int)y;
+				get_wall_dir(data, x, y, *wall_hit);
 				return (distance * cos(ray_angle - data->player_x_dir));
 			}
 		}
