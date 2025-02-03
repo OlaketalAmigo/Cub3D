@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+         #
+#    By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 14:38:38 by tfauve-p          #+#    #+#              #
-#    Updated: 2025/01/17 12:22:07 by tfauve-p         ###   ########.fr        #
+#    Updated: 2025/02/02 02:11:02 by hehe             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SOURCES = \
 	$(SOURCES_DIR)tools_2.c	\
 	$(SOURCES_DIR)init_data.c \
 	$(SOURCES_DIR)raycasting.c \
+	$(SOURCES_DIR)dda_algo.c \
+	$(SOURCES_DIR)wall_tex.c \
 	$(SOURCES_DIR)change_pos.c \
 	$(SOURCES_DIR)error.c
 

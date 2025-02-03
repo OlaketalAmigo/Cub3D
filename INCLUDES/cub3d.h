@@ -6,7 +6,7 @@
 /*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/01/21 02:27:51 by hehe             ###   ########.fr       */
+/*   Updated: 2025/02/03 15:12:30 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "fcntl.h"
 # include "sys/types.h"
 # include "sys/wait.h"
+# include <stdint.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 100
@@ -115,6 +116,23 @@ typedef struct data
 	double	player_y;
 	double	player_x_dir;
 }	t_struct;
+
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	side_x;
+	double	side_y;
+	double	delta_x;
+	double	delta_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	double	wall_x;
+	double	distance;
+}	t_ray;
 
 // ERROR //
 
@@ -214,6 +232,19 @@ void	draw_collumn(t_struct *data, int x, double distance, double wall_hit);
 void	render_vertical(t_struct *data, int x, float height, double wall_hit);
 void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
 double	check_ray(t_struct *data, double ray_angle, double *wall_hit);
+
+// DDA ALGO //
+
+void	init_struct_ray(t_ray *ray, t_struct *data, double ray_angle);
+void	dda_step(t_ray *ray);
+double	final_distance(t_ray *ray, t_struct *data, double ray_a, double *wall_h);
+
+// WALL TEX //
+
+void	apply_texture(t_struct *data, int x, int y, double pos);
+void	get_wall_dir(t_struct *data, t_ray *ray);
+void	ft_get_textures(t_struct *data);
+void	ft_init_mlx(t_struct *data);
 
 // CHANGE POSITION //
 

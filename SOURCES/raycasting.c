@@ -8,36 +8,6 @@ void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-void	apply_texture(t_struct *d, int x, int y, double pos)
-{
-	char	*tex;
-	int		color;
-	int		offset;
-
-	d->tex_y = (int)pos % d->img_h;
-	if (d->tex_x < 0)
-		d->tex_x = 0;
-	else if (d->tex_x >= d->img_w)
-		d->tex_x = d->img_w - 1;
-	if (d->tex_y < 0)
-		d->tex_y = 0;
-	else if (d->tex_y >= d->img_h)
-		d->tex_y = d->img_h - 1;
-	if (d->wall_dir == 'N')
-		tex = d->n_data;
-	else if (d->wall_dir == 'S')
-		tex = d->s_data;
-	else if (d->wall_dir == 'W')
-		tex = d->w_data;
-	else
-		tex = d->e_data;
-	offset = (d->tex_y * d->img_w + d->tex_x) * (d->bpp / 8);
-	if (offset < 0 || offset >= d->img_h * d->img_w * (d->bpp / 8))
-		return ;
-	color = *(unsigned int *)(tex + offset);
-	my_mlx_pixel_put(d, x, y, color);
-}
-
 void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 {
 	double	start;
@@ -48,7 +18,6 @@ void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 	end = start + height;
 	step = (double)data->img_h / height;
 	double (pos) = 0;
-	wall_hit = fmod(wall_hit, 1.0);
 	data->tex_x = (int)(wall_hit * data->img_w);
 	int (y) = 0;
 	while (y < data->sc_h)
@@ -59,6 +28,8 @@ void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 		{
 			apply_texture(data, x, y, pos);
 			pos = pos + step;
+			if (pos >= data->img_h)
+				pos = data->img_h - 1;
 		}
 		else
 			my_mlx_pixel_put(data, x, y, 0x500050);
@@ -78,67 +49,30 @@ void	draw_collumn(t_struct *data, int x, double distance, double wall_hit)
 	render_vertical(data, x, height, wall_hit);
 }
 
-void	get_wall_dir(t_struct *data, double x, double y, double side)
-{
-	double	delta_x;
-	double	delta_y;
-
-	delta_x = x - data->player_x;
-	delta_y = y - data->player_y;
-	if (side == (y - (int)y))
-	{
-		if (delta_x > 0)
-			data->wall_dir = 'E';
-		else
-			data->wall_dir = 'W';
-	}
-	else
-	{
-		if (delta_y > 0)
-			data->wall_dir = 'S';
-		else
-			data->wall_dir = 'N';
-	}
-}
-
 double	check_ray(t_struct *data, double ray_angle, double *wall_hit)
 {
-	double	distance;
-	double	x;
-	double	y;
+	t_ray	ray;
 
-	distance = 0.0;
-	while (distance < data->ray_len)
+	init_struct_ray(&ray, data, ray_angle);
+	while (1)
 	{
-		x = data->player_x + cos(ray_angle) * distance;
-		y = data->player_y + sin(ray_angle) * distance;
-		if ((int)x < data->height[(int)y] && (int)y < data->map_h)
-		{
-			if (data->map[(int)y][(int)x] == '1')
-			{
-				*wall_hit = x - (int)x;
-				if (fabs(cos(ray_angle)) > fabs(sin(ray_angle)))
-					*wall_hit = y - (int)y;
-				get_wall_dir(data, x, y, *wall_hit);
-				return (distance * cos(ray_angle - data->player_x_dir));
-			}
-		}
-		else
+		dda_step(&ray);
+		if (ray.map_y >= data->map_h || ray.map_x >= data->height[ray.map_y])
+			return (-1);
+		if (data->map[ray.map_y][ray.map_x] == '1')
 			break ;
-		distance = distance + 0.01;
 	}
-	return (-1);
+	get_wall_dir(data, &ray);
+	return (final_distance(&ray, data, ray_angle, wall_hit));
 }
 
 void	init_rays(t_struct *data)
 {
 	double	distance;
 	double	ray_angle;
-	double	step;
 	double	wall_hit;
 	int		x;
 
-	step = data->fov / (double)data->sc_w;
 	ray_angle = data->player_x_dir - (data->fov / 2);
 	x = 0;
 	while (ray_angle < data->player_x_dir + (data->fov / 2))
@@ -146,7 +80,7 @@ void	init_rays(t_struct *data)
 		distance = check_ray(data, ray_angle, &wall_hit);
 		if (distance != -1)
 			draw_collumn(data, x, distance, wall_hit);
-		ray_angle = ray_angle + step;
+		ray_angle += data->fov / data->sc_w;
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
