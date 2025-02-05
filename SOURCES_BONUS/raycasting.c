@@ -8,15 +8,6 @@ void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int	get_color(t_struct *data, char c)
-{
-	if (c == 'F')
-		return (data->floor_first << 16 | data->floor_second << 8 | data->floor_third);
-	else if (c == 'C')
-		return (data->ceiling_first << 16 | data->ceiling_second << 8 | data->ceiling_third);
-	return (0);
-}
-
 void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 {
 	double	start;
@@ -93,4 +84,5 @@ void	init_rays(t_struct *data)
 		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	render_minimap(data);
 }

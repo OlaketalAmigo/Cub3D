@@ -1,5 +1,14 @@
 #include "cub3d.h"
 
+int	get_color(t_struct *d, char c)
+{
+	if (c == 'F')
+		return (d->f_first << 16 | d->f_second << 8 | d->f_third);
+	else if (c == 'C')
+		return (d->c_first << 16 | d->c_second << 8 | d->c_third);
+	return (0);
+}
+
 void	apply_texture(t_struct *d, int x, int y, double pos)
 {
 	uint32_t	*tex;

@@ -10,17 +10,17 @@ int	ft_is_valid_number(t_struct *data, char	*string, char *input, char c)
 	if (nb < 0 || nb > 255)
 		return (BAD);
 	if (ft_strncmp(string, "first", 5) == GOOD && c == 99)
-		data->ceiling_first = nb;
+		data->c_first = nb;
 	if (ft_strncmp(string, "second", 6) == GOOD && c == 99)
-		data->ceiling_second = nb;
+		data->c_second = nb;
 	if (ft_strncmp(string, "third", 5) == GOOD && c == 99)
-		data->ceiling_third = nb;
+		data->c_third = nb;
 	if (ft_strncmp(string, "first", 5) == GOOD && c == 102)
-		data->floor_first = nb;
+		data->f_first = nb;
 	if (ft_strncmp(string, "second", 6) == GOOD && c == 102)
-		data->floor_second = nb;
+		data->f_second = nb;
 	if (ft_strncmp(string, "third", 5) == GOOD && c == 102)
-		data->floor_third = nb;
+		data->f_third = nb;
 	return (GOOD);
 }
 

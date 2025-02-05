@@ -42,26 +42,26 @@ void	dda_step(t_ray *ray)
 	}
 }
 
-double	final_distance(t_ray *ray, t_struct *data, double ray_a, double *wall_h)
+double	final_distance(t_ray *ray, t_struct *d, double ray_a, double *wall_h)
 {
 	int	wall;
 
 	wall = ray->side;
 	if (ray->side == 0)
 	{
-		ray->distance = (ray->map_x - data->player_x
+		ray->distance = (ray->map_x - d->player_x
 				+(1 - ray->step_x) / 2) / ray->dir_x;
-		ray->wall_x = data->player_y + ray->dir_y * ray->distance;
+		ray->wall_x = d->player_y + ray->dir_y * ray->distance;
 	}
 	else
 	{
-		ray->distance = (ray->map_y - data->player_y
+		ray->distance = (ray->map_y - d->player_y
 				+ (1 - ray->step_y) / 2) / ray->dir_y;
-		ray->wall_x = data->player_x + ray->dir_x * ray->distance;
+		ray->wall_x = d->player_x + ray->dir_x * ray->distance;
 	}
 	ray->wall_x = ray->wall_x - floor(ray->wall_x);
 	if ((wall == 0 && ray->step_x == -1) || (wall == 1 && ray->step_y == -1))
 		ray->wall_x = 1 - ray->wall_x;
 	*wall_h = ray->wall_x;
-	return (ray->distance * cos(ray_a - data->player_x_dir));
+	return (ray->distance * cos(ray_a - d->player_x_dir));
 }

@@ -49,6 +49,7 @@ SOURCES_BONUS = \
 	$(SOURCES_DIR2)raycasting.c \
 	$(SOURCES_DIR2)dda_algo.c \
 	$(SOURCES_DIR2)wall_tex.c \
+	$(SOURCES_DIR2)render_minimap.c	\
 	$(SOURCES_DIR2)change_pos.c \
 	$(SOURCES_DIR2)error.c
 

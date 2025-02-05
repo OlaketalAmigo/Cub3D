@@ -23,7 +23,7 @@ int	ft_close(t_struct *data)
 
 void	ft_print_error_and_exit(char *s)
 {
-	printf("%s\n", s);
+	printf("%s", s);
 	exit(EXIT_FAILURE);
 }
 
@@ -31,6 +31,6 @@ void	ft_error_and_exit(char *s, t_struct *data)
 {
 	ft_free(data->file);
 	ft_free(data->map);
-	printf("%s\n", s);
+	printf("%s", s);
 	exit(EXIT_FAILURE);
 }

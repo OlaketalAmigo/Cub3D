@@ -60,6 +60,8 @@ int	init_data(t_struct *data)
 	data->d = NO;
 	data->l_arrow = NO;
 	data->r_arrow = NO;
+	data->movement = 0;
+	data->start = 0;
 	if (init_dir(data, data->spawn_dir) == BAD)
 		return (BAD);
 	if (graphic_init(data) == BAD)

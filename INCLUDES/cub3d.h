@@ -6,7 +6,7 @@
 /*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/05 12:31:07 by gprunet          ###   ########.fr       */
+/*   Updated: 2025/02/05 16:43:44 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define NO 1
 # define ERROR_ARGS_NUMBER "Error\nWrong number of args\n"
 # define ERROR_MAP_FORMAT "Error\nWrong map format, you must use *.cub file\n"
-# define ERROR_MAP_FILE_OPEN "Error\nCouldn't open map's file"
+# define ERROR_MAP_FILE_OPEN "Error\nCouldn't open map's file\n"
 # define ERROR_OPEN "Error\nCouldn't open map's file\n"
 # define ERROR_MALLOC_FAILED "Error\nMalloc failed\n"
 # define ERROR_FILE_MISSING "Error\nOne texture's path is missing\n"
@@ -64,57 +64,59 @@
 
 typedef struct data
 {
-	char	**file;
-	char	**map;
-	char	*addr;
-	int		img_h;
-	int		img_w;
-	int		*height;
-	char	*path_to_n;
-	char	*path_to_s;
-	char	*path_to_w;
-	char	*path_to_e;
-	void	*north_img;
-	void	*south_img;
-	void	*west_img;
-	void	*east_img;
-	char	*n_data;
-	char	*s_data;
-	char	*w_data;
-	char	*e_data;
-	int		tex_x;
-	int		tex_y;
-	char	wall_dir;
-	int		floor_first;
-	int		floor_second;
-	int		floor_third;
-	int		ceiling_first;
-	int		ceiling_second;
-	int		ceiling_third;
-	void	*mlx;
-	void	*win;
-	void	*img;
-	int		bpp;
-	int		end;
-	int		len;
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-	int		l_arrow;
-	int		r_arrow;
-	double	fov;
-	double	ray_len;
-	int		sc_h;
-	int		sc_w;
-	int		map_h;
-	int		map_w;
-	int		spawn_x;
-	int		spawn_y;
-	int		spawn_dir;
-	double	player_x;
-	double	player_y;
-	double	player_x_dir;
+	char		**file;
+	char		**map;
+	char		*addr;
+	int			img_h;
+	int			img_w;
+	int			*height;
+	char		*path_to_n;
+	char		*path_to_s;
+	char		*path_to_w;
+	char		*path_to_e;
+	void		*north_img;
+	void		*south_img;
+	void		*west_img;
+	void		*east_img;
+	char		*n_data;
+	char		*s_data;
+	char		*w_data;
+	char		*e_data;
+	int			tex_x;
+	int			tex_y;
+	char		wall_dir;
+	int			f_first;
+	int			f_second;
+	int			f_third;
+	int			c_first;
+	int			c_second;
+	int			c_third;
+	void		*mlx;
+	void		*win;
+	void		*img;
+	int			bpp;
+	int			end;
+	int			len;
+	int			w;
+	int			a;
+	int			s;
+	int			d;
+	int			l_arrow;
+	int			r_arrow;
+	double		fov;
+	double		ray_len;
+	int			sc_h;
+	int			sc_w;
+	int			map_h;
+	int			map_w;
+	int			spawn_x;
+	int			spawn_y;
+	int			spawn_dir;
+	double		player_x;
+	double		player_y;
+	double		player_x_dir;
+	int			movement;
+	int			start;
 }	t_struct;
 
 typedef struct s_ray
@@ -237,7 +239,7 @@ double	check_ray(t_struct *data, double ray_angle, double *wall_hit);
 
 void	init_struct_ray(t_ray *ray, t_struct *data, double ray_angle);
 void	dda_step(t_ray *ray);
-double	final_distance(t_ray *ray, t_struct *data, double ray_a, double *wall_h);
+double	final_distance(t_ray *ray, t_struct *d, double ray_a, double *wall_h);
 int		is_border(t_struct *data, int x, int y);
 
 // WALL TEX //
@@ -246,13 +248,19 @@ void	apply_texture(t_struct *data, int x, int y, double pos);
 void	get_wall_dir(t_struct *data, t_ray *ray);
 void	ft_get_textures(t_struct *data);
 void	ft_init_mlx(t_struct *data);
+int		get_color(t_struct *data, char c);
+
+// MINIMAP //
+
+void	render_minimap(t_struct *data);
 
 // CHANGE POSITION //
 
-void	change_direction(t_struct *data, int key);
-void	change_position(t_struct *data, int key);
-int		check_next_pos(t_struct *d, int key);
+int		change_direction(t_struct *data, int key);
+int		change_position(t_struct *data, int key);
 void	assign_next_pos(double *x, double *y, int key, double dir);
+int		wall_pos_right(t_struct *d, double t_x, double t_y);
+int		wall_pos_left(t_struct *d, double t_x, double t_y);
 
 // ERRORS //
 
