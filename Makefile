@@ -15,7 +15,9 @@ NAME = cub3D
 SOURCES_DIR = SOURCES/
 INCLUDES_DIR = INCLUDES/
 OBJECTS_DIR = OBJECTS/
-MLX = minilibx-linux/
+MLX_PATH = minilibx-linux/
+M_NAME = libmlx.a
+MLX = $(MLX_PATH)$(M_NAME)
 
 SOURCES = \
 	$(SOURCES_DIR)main.c \
@@ -41,16 +43,20 @@ SOURCES = \
 OBJECTS = $(SOURCES:$(SOURCES_DIR)%.c=$(OBJECTS_DIR)%.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g3
+INC	=	-I INCLUDES/\
+		-I ./minilibx-linux/
 
-all: $(NAME)
+all: $(MLX) $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -Lminilibx-linux -lmlx -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o $(NAME)
-	@clear
+	$(CC) $(CFLAGS) $(OBJECTS) $(OBJS) -o $@ $(INC) $(MLX) -lXext -lX11 -lm
 
 $(OBJECTS_DIR)%.o: $(SOURCES_DIR)%.c
 	@mkdir -p $(OBJECTS_DIR)
-	@$(CC) $(CFLAGS) -I $(INCLUDES_DIR) -I $(MLX) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+$(MLX):
+	make -sC $(MLX_PATH)
 
 clean:
 	@rm -rf $(OBJECTS_DIR)
