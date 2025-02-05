@@ -6,9 +6,7 @@ int	ft_is_valid_number(t_struct *data, char	*string, char *input, char c)
 
 	if (ft_strlen(input) >= 4)
 		return (BAD);
-	printf("input = %s\n", input);
 	nb = atoi(input);
-	printf("nb = %d\n", nb);
 	if (nb < 0 || nb > 255)
 		return (BAD);
 	if (ft_strncmp(string, "first", 5) == GOOD && c == 99)
@@ -23,12 +21,6 @@ int	ft_is_valid_number(t_struct *data, char	*string, char *input, char c)
 		data->floor_second = nb;
 	if (ft_strncmp(string, "third", 5) == GOOD && c == 102)
 		data->floor_third = nb;
-	printf("C1 = %d\n", data->ceiling_first);
-	printf("C2 = %d\n", data->ceiling_second);
-	printf("C3 = %d\n", data->ceiling_third);
-	printf("F1 = %d\n", data->floor_first);
-	printf("F2 = %d\n", data->floor_second);
-	printf("F3 = %d\n", data->floor_third);
 	return (GOOD);
 }
 

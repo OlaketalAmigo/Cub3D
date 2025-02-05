@@ -59,7 +59,7 @@ int	check_next_pos(t_struct *d, int key)
 	x = floor(t_x);
 	y = floor(t_y);
 	if (x < 0 || y < 0 || x >= d->height[y] || y >= d->map_h
-		|| d->map[y][x] == ' ' || d->map[y][x] == '1')
+		|| d->map[y][x] == ' ' || (d->map[y][x] == '1' && is_border(d, x, y)))
 		return (BAD);
 	d->player_x = t_x;
 	d->player_y = t_y;

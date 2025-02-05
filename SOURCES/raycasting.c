@@ -8,6 +8,15 @@ void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+int	get_color(t_struct *data, char c)
+{
+	if (c == 'F')
+		return (data->floor_first << 16 | data->floor_second << 8 | data->floor_third);
+	else if (c == 'C')
+		return (data->ceiling_first << 16 | data->ceiling_second << 8 | data->ceiling_third);
+	return (0);
+}
+
 void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 {
 	double	start;
@@ -23,7 +32,7 @@ void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 	while (y < data->sc_h)
 	{
 		if (y < start)
-			my_mlx_pixel_put(data, x, y, 0x0080FF);
+			my_mlx_pixel_put(data, x, y, get_color(data, 'C'));
 		else if (y >= start && y < end)
 		{
 			apply_texture(data, x, y, pos);
@@ -32,7 +41,7 @@ void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 				pos = data->img_h - 1;
 		}
 		else
-			my_mlx_pixel_put(data, x, y, 0x500050);
+			my_mlx_pixel_put(data, x, y, get_color(data, 'F'));
 		y++;
 	}
 }

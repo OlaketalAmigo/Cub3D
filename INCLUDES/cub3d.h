@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/03 15:12:30 by hehe             ###   ########.fr       */
+/*   Updated: 2025/02/05 12:31:07 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ double	check_ray(t_struct *data, double ray_angle, double *wall_hit);
 void	init_struct_ray(t_ray *ray, t_struct *data, double ray_angle);
 void	dda_step(t_ray *ray);
 double	final_distance(t_ray *ray, t_struct *data, double ray_a, double *wall_h);
+int		is_border(t_struct *data, int x, int y);
 
 // WALL TEX //
 

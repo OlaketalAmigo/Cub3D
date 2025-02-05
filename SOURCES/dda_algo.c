@@ -1,5 +1,12 @@
 #include "cub3d.h"
 
+int	is_border(t_struct *data, int x, int y)
+{
+	if (x == 0 || x == data->map_w - 1 || y == 0 || y == data->map_h - 1)
+		return (1);
+	return (0);
+}
+
 void	init_struct_ray(t_ray *ray, t_struct *data, double ray_angle)
 {
 	ray->dir_x = cos(ray_angle);
