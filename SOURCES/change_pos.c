@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void	change_direction(t_struct *data, int key)
+int	change_direction(t_struct *data, int key)
 {
 	if (key == R_ARROW)
 		data->player_x_dir = data->player_x_dir + 0.15;
@@ -10,6 +10,7 @@ void	change_direction(t_struct *data, int key)
 		data->player_x_dir = data->player_x_dir + 2 * M_PI;
 	else if (data->player_x_dir > 2 * M_PI)
 		data->player_x_dir = data->player_x_dir - 2 * M_PI;
+	return (GOOD);
 }
 
 void	assign_next_pos(double *x, double *y, int key, double dir)
@@ -61,12 +62,13 @@ int	check_next_pos(t_struct *d, int key)
 	return (GOOD);
 }
 
-void	change_position(t_struct *data, int key)
+int	change_position(t_struct *data, int key)
 {
 	if (check_next_pos(data, key) == BAD)
-		return ;
+		return (1);
 	mlx_destroy_image(data->mlx, data->img);
 	data->img = mlx_new_image(data->mlx, data->sc_w, data->sc_h);
 	data->addr = mlx_get_data_addr(data->img,
 			&data->bpp, &data->len, &data->end);
+	return (GOOD);
 }

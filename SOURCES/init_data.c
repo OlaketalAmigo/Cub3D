@@ -64,7 +64,5 @@ int	init_data(t_struct *data)
 		return (BAD);
 	if (graphic_init(data) == BAD)
 		return (BAD);
-	if (init_minimap(data, data) == BAD)
-		return (BAD);
 	return (GOOD);
 }
