@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:53 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:54 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:33:16 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	draw_map(t_struct *d)
 		x = 0;
 		while (x < 200)
 		{
-			color = 0x000000;
+			color = get_color(d, 'C');
 			if (y < d->map_h && x < d->height[y])
 			{
 				if (d->map[y][x] == '0' || d->map[y][x] > 50)
 					color = 0xFFFFFF;
 				else if (d->map[y][x] == '1')
-					color = 0x00FF00;
+					color = get_color(d, 'F');
 			}
 			draw_grid(d, x, y, color);
 			x++;
@@ -103,7 +103,7 @@ void	render_minimap(t_struct *d)
 		x = 0;
 		while (x < 200)
 		{
-			my_mlx_pixel_put(d, x, y, 0x000000);
+			my_mlx_pixel_put(d, x, y, get_color(d, 'C'));
 			x++;
 		}
 		y++;
