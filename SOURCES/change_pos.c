@@ -3,9 +3,9 @@
 int	change_direction(t_struct *data, int key)
 {
 	if (key == R_ARROW)
-		data->player_x_dir = data->player_x_dir + 0.15;
+		data->player_x_dir = data->player_x_dir + 0.030;
 	else if (key == L_ARROW)
-		data->player_x_dir = data->player_x_dir - 0.15;
+		data->player_x_dir = data->player_x_dir - 0.030;
 	if (data->player_x_dir < 0)
 		data->player_x_dir = data->player_x_dir + 2 * M_PI;
 	else if (data->player_x_dir > 2 * M_PI)
@@ -22,23 +22,23 @@ void	assign_next_pos(double *x, double *y, int key, double dir)
 	t_y = sin(dir);
 	if (key == W)
 	{
-		*x = 0.2 * t_x;
-		*y = 0.2 * t_y;
+		*x = 0.1 * t_x;
+		*y = 0.1 * t_y;
 	}
 	else if (key == D)
 	{
-		*x = 0.2 * -t_y;
-		*y = 0.2 * t_x;
+		*x = 0.1 * -t_y;
+		*y = 0.1 * t_x;
 	}
 	else if (key == S)
 	{
-		*x = -0.2 * t_x;
-		*y = -0.2 * t_y;
+		*x = -0.1 * t_x;
+		*y = -0.1 * t_y;
 	}
 	else if (key == A)
 	{
-		*x = 0.2 * t_y;
-		*y = -0.2 * t_x;
+		*x = 0.1 * t_y;
+		*y = -0.1 * t_x;
 	}
 }
 
