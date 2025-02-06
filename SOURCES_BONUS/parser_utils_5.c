@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 13:30:02 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:43 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/06 14:27:15 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	ft_check_element_order(char	**tab)
 			|| check[3] == -1 || check[4] == -1 || check[5] == -1
 			|| check[6] == -1))
 		ft_fill_order_tab(check, i, tab);
-	if (check[0] < check[1] && check [1] < check[2] && check[2] < check[3]
-		&& check[3] < check[4] && check[4] < check[5] && check[5] < check[6])
+	if (check[0] < check[6] && check [1] < check[6] && check[2] < check[6]
+		&& check[3] < check[6] && check[4] < check[6] && check[5] < check[6])
 		return (GOOD);
 	return (printf(ERROR_FILE_ELEMENT_ORDER), BAD);
 }

@@ -1,7 +1,7 @@
-NO ./TEXTURES/Feu.xpm
-SO ./TEXTURES/Flowers.xpm
-WE ./TEXTURES/Sunset.xpm
-EA ./TEXTURES/Paris.xpm
+NO ./TEXTURES/north.xpm
+SO ./TEXTURES/south.xpm
+WE ./TEXTURES/east.xpm
+EA ./TEXTURES/west.xpm
 
 F 30,30,30
 C 0,114,255
