@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/15 13:35:14 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 02:03:58 by hehe             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -45,6 +33,7 @@
 # define YES 0
 # define NO 1
 # define ERROR_ARGS_NUMBER "Error\nWrong number of args\n"
+# define ERROR_TEXTURE_FAILED "Error\nSomething wrong with textures files\n"
 # define ERROR_MAP_FORMAT "Error\nWrong map format, you must use *.cub file\n"
 # define ERROR_MAP_FILE_OPEN "Error\nCouldn't open map's file\n"
 # define ERROR_OPEN "Error\nCouldn't open map's file\n"
@@ -142,6 +131,7 @@ typedef struct s_ray
 
 void	ft_print_error_and_exit(char *s);
 void	ft_error_and_exit(char *s, t_struct *data);
+void	ft_free_textures(t_struct *data);
 int		ft_close(t_struct *data);
 
 // PARSER //

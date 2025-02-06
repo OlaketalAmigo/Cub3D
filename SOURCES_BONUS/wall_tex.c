@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wall_tex.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 14:00:03 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/02/06 14:00:04 by tfauve-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	get_color(t_struct *d, char c)
@@ -65,7 +77,10 @@ void	ft_get_textures(t_struct *data)
 	data->e_data = mlx_get_data_addr(data->east_img,
 			&data->bpp, &data->len, &data->end);
 	if (!data->n_data || !data->s_data || !data->w_data || !data->e_data)
-		ft_error_and_exit("ERROR_TEXTURE_FAILED", data);
+	{
+		ft_free_textures(data);
+		ft_error_and_exit(ERROR_TEXTURE_FAILED, data);
+	}
 }
 
 void	ft_init_mlx(t_struct *data)
@@ -80,15 +95,18 @@ void	ft_init_mlx(t_struct *data)
 			&data->img_w, &data->img_h);
 	data->west_img = mlx_xpm_file_to_image(data->mlx, data->path_to_w,
 			&data->img_w, &data->img_h);
+	if (!data->west_img || !data->east_img
+		|| !data->north_img || !data->south_img)
+	{
+		ft_free_textures(data);
+		ft_error_and_exit(ERROR_TEXTURE_FAILED, data);
+	}
 	ft_get_textures(data);
 	data->height = malloc (4 * ft_nb_arg(data->map));
 	if (data->height)
 	{
-		i = 0;
-		while (data->map[i])
-		{
+		i = -1;
+		while (data->map[++i])
 			data->height[i] = ft_strlen(data->map[i]);
-			i++;
-		}
 	}
 }

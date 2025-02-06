@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_utils_4.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/06 13:59:39 by tfauve-p          #+#    #+#             */
+/*   Updated: 2025/02/06 13:59:40 by tfauve-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	ft_check_whitespace_line(char **tab)
@@ -28,7 +40,7 @@ int	ft_check_upper_wall(char *string)
 		return (BAD);
 	while (string[++i])
 	{
-		if (string[i] != 49 && string[i] != 32)
+		if (string[i] != 49 && string[i] != 32 && string[i] != 48)
 			return (BAD);
 	}
 	return (GOOD);
