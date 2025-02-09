@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:34 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:35 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:05:16 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,32 @@ int	ft_check_texture_file_duplicate(t_struct *data, char *s)
 	if (count == 1)
 		return (GOOD);
 	return (BAD);
+}
+
+int	ft_remove_ending_newlines(t_struct *data)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	**tmp;
+
+	i = ft_nb_arg(data->file) - 1;
+	while (data->file[i] && ft_strlen(data->file[i]) == 0)
+		i--;
+	tmp = malloc ((i + 2) * 8);
+	if (!tmp)
+		return (BAD);
+	j = -1;
+	while (++j <= i)
+	{
+		k = -1;
+		tmp[j] = malloc ((ft_strlen(data->file[j]) + 1) * 1);
+		while (++k < ft_strlen(data->file[j]))
+			tmp[j][k] = data->file[j][k];
+		tmp[j][k] = '\0';
+	}
+	tmp[j] = NULL;
+	ft_free(data->file);
+	data->file = tmp;
+	return (GOOD);
 }

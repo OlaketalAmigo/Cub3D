@@ -133,6 +133,7 @@ void	ft_print_error_and_exit(char *s);
 void	ft_error_and_exit(char *s, t_struct *data);
 void	ft_free_textures(t_struct *data);
 int		ft_close(t_struct *data);
+void	ft_free_parsing(t_struct *data);
 
 // PARSER //
 
@@ -151,6 +152,7 @@ int		ft_check_file(t_struct *data);
 int		ft_check_texture_file_opening(t_struct *data, char *s);
 int		ft_check_texture_file_missing(t_struct *data, char *s);
 int		ft_check_texture_file_duplicate(t_struct *data, char *s);
+int		ft_remove_ending_newlines(t_struct *data);
 
 // PARSER UTILS 3 //
 

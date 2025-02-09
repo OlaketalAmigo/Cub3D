@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:30 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:58:50 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:31:30 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,16 @@ int	ft_parser(t_struct *data, int argc, char **argv)
 		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
 	if (ft_check_file(data) == BAD)
 		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
+	if (ft_remove_ending_newlines(data) == BAD)
+		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
 	if (ft_set_up_map(data) == BAD)
 		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
 	if (ft_check_map(data) == BAD)
-		return (ft_free(data->file), ft_free(data->map), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_check_one_block(data) == BAD)
-		return (ft_free(data->file), ft_free(data->map), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_check_cornered_by_walls(data) == BAD)
-		return (ft_free(data->file), ft_free(data->map), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	ft_set_up_final_map(data);
 	return (0);
 }
