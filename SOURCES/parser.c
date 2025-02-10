@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 11:23:30 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/09 13:31:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:52:51 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,17 @@ int	ft_parser(t_struct *data, int argc, char **argv)
 	if (ft_check_map_format(argv) == BAD)
 		ft_print_error_and_exit(ERROR_MAP_FORMAT);
 	ft_set_up_cub3d_file(data, argv);
+	ft_printf_tab(data->file);
 	if (ft_check_element_order(data->file) == BAD)
-		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_check_whitespace_line(data->file) == BAD)
-		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_check_file(data) == BAD)
-		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_remove_ending_newlines(data) == BAD)
-		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_set_up_map(data) == BAD)
-		return (ft_free(data->file), exit(EXIT_FAILURE), 1);
+		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_check_map(data) == BAD)
 		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	if (ft_check_one_block(data) == BAD)
@@ -138,5 +139,6 @@ int	ft_parser(t_struct *data, int argc, char **argv)
 	if (ft_check_cornered_by_walls(data) == BAD)
 		return (ft_free_parsing(data), exit(EXIT_FAILURE), 1);
 	ft_set_up_final_map(data);
+	ft_printf_tab(data->map);
 	return (0);
 }

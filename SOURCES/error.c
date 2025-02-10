@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:58:18 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/09 13:32:42 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:37:03 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ void	ft_error_and_exit(char *s, t_struct *data)
 
 void	ft_free_parsing(t_struct *data)
 {
-	ft_free(data->file);
-	ft_free(data->map);
+	if (data->file)
+		ft_free(data->file);
+	if (data->map)
+		ft_free(data->map);
 	if (data->path_to_n)
 		free(data->path_to_n);
 	if (data->path_to_s)

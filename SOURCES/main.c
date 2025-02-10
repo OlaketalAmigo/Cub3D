@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:58:30 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:58:31 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:47:42 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,23 @@ int	game_loop(t_struct *data)
 	return (0);
 }
 
+void	ft_init(t_struct *data)
+{
+	data->img_h = 96;
+	data->img_w = 96;
+	data->map = NULL;
+	data->file = NULL;
+	data->path_to_n = NULL;
+	data->path_to_s = NULL;
+	data->path_to_w = NULL;
+	data->path_to_e = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_struct	data;
 
-	data.img_h = 48;
-	data.img_w = 48;
+	ft_init(&data);
 	ft_parser(&data, argc, argv);
 	if (init_data(&data) == BAD)
 		ft_error_and_exit(ERROR_MALLOC_FAILED, &data);

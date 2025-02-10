@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:01 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:57:34 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*ft_strtrim(char *s1, char *set)
 	debut = ft_start(s1, set);
 	fin = ft_end(s1, set, length);
 	if (fin - debut <= 0)
-		string = malloc(1);
+		return (ft_strdup(""));
 	else
 		string = malloc (fin - debut + 2);
 	if (!string)
