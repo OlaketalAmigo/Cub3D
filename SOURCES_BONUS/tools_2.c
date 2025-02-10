@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:57 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:58 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:13:17 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,16 @@ int	ft_nb_arg(char **tab)
 	while (tab[i])
 		i++;
 	return (i);
+}
+
+void	ft_init(t_struct *data)
+{
+	data->img_h = 96;
+	data->img_w = 96;
+	data->map = NULL;
+	data->file = NULL;
+	data->path_to_n = NULL;
+	data->path_to_s = NULL;
+	data->path_to_w = NULL;
+	data->path_to_e = NULL;
 }

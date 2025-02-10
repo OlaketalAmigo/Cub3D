@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:32 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/10 13:39:30 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 14:13:01 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,7 @@ int	main(int argc, char **argv)
 {
 	t_struct	data;
 
-	data.img_h = 96;
-	data.img_w = 96;
-	data.map = NULL;
+	ft_init(&data);
 	ft_parser(&data, argc, argv);
 	if (init_data(&data) == BAD)
 		ft_error_and_exit(ERROR_MALLOC_FAILED, &data);
