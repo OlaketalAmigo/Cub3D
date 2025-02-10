@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:39 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:40 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:26:17 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	ft_check_upper_wall(char *string)
 		return (BAD);
 	while (string[++i])
 	{
-		if (string[i] != 49 && string[i] != 32 && string[i] != 48)
+		if (string[i] != 49 && string[i] != 32 && string[i] != 48
+			&& string[i] != 78 && string[i] != 69 && string[i] != 83
+			&& string[i] != 87)
 			return (BAD);
 	}
 	return (GOOD);
