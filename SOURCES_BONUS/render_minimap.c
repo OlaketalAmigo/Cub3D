@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gprunet <gprunet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:53 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 14:33:16 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/10 11:49:42 by gprunet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	draw_map(t_struct *d)
 				else if (d->map[y][x] == '1')
 					color = get_color(d, 'F');
 			}
-			draw_grid(d, x, y, color);
+			if (color != get_color(d, 'C'))
+				draw_grid(d, x, y, color);
 			x++;
 		}
 		y++;
@@ -91,23 +92,10 @@ void	draw_player(t_struct *d, int x, int y)
 
 void	render_minimap(t_struct *d)
 {
-	int	x;
-	int	y;
 	int	p_x;
 	int	p_y;
 
-	y = 0;
 	get_minimap_scale(d, &d->mini_h, &d->mini_w);
-	while (y < 200)
-	{
-		x = 0;
-		while (x < 200)
-		{
-			my_mlx_pixel_put(d, x, y, get_color(d, 'C'));
-			x++;
-		}
-		y++;
-	}
 	draw_map(d);
 	p_x = (d->player_x * d->mini_w) - 2;
 	p_y = (d->player_y * d->mini_h) - 2;
