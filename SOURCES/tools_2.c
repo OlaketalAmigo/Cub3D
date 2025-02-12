@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:58:59 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:00 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:15:24 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,25 @@ int	ft_nb_arg(char **tab)
 	while (tab[i])
 		i++;
 	return (i);
+}
+
+int	ft_atoi(char *string)
+{
+	int	nb;
+	int	i;
+
+	i = 0;
+	nb = 0;
+	while (string[i])
+	{
+		if (string[i] == 48 || string[i] == 49 || string[i] == 50
+			|| string[i] == 51 || string[i] == 52 || string[i] == 53
+			|| string[i] == 54 || string[i] == 55 || string[i] == 56
+			|| string[i] == 57)
+			nb = nb * 10 + (string[i] - 48);
+		else
+			return (-1);
+		i++;
+	}
+	return (nb);
 }

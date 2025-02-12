@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:03:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/10 14:12:26 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:13:02 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ char	*ft_fill_map(char *string);
 char	*ft_put_number_to_string(char *string, int n);
 int		ft_nb_arg(char **tab);
 void	ft_init(t_struct *data);
+int		ft_atoi(char *string);
 
 // GET NEXT LINE //
 

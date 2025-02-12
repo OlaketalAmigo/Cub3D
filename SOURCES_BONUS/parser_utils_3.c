@@ -6,7 +6,7 @@
 /*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:36 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/10 12:26:48 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/12 12:24:38 by tfauve-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_is_valid_number(t_struct *data, char	*string, char *input, char c)
 
 	if (ft_strlen(input) >= 4)
 		return (BAD);
-	nb = atoi(input);
+	nb = ft_atoi(input);
 	if (nb < 0 || nb > 255 || (nb == 0 && ft_strlen(input) == 0))
 		return (BAD);
 	if (ft_strncmp(string, "first", 5) == GOOD && c == 99)
