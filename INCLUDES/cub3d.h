@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:03:20 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/12 12:13:02 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/14 01:17:38 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct data
 	char		*s_data;
 	char		*w_data;
 	char		*e_data;
+	int			start_w;
+	int			end_w;
 	int			tex_x;
 	int			tex_y;
 	char		wall_dir;
@@ -240,7 +242,7 @@ int		graphic_init(t_struct *d);
 void	init_rays(t_struct *data);
 void	draw_collumn(t_struct *data, int x, double distance, double wall_hit);
 void	render_vertical(t_struct *data, int x, float height, double wall_hit);
-void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
+void	visible_height(t_struct *data, double *step, double *pos, float height);
 double	check_ray(t_struct *data, double ray_angle, double *wall_hit);
 
 // DDA ALGO //
@@ -249,6 +251,7 @@ void	init_struct_ray(t_ray *ray, t_struct *data, double ray_angle);
 void	dda_step(t_ray *ray);
 double	final_distance(t_ray *ray, t_struct *d, double ray_a, double *wall_h);
 int		is_border(t_struct *data, int x, int y);
+void	my_mlx_pixel_put(t_struct *data, int x, int y, int color);
 
 // WALL TEX //
 

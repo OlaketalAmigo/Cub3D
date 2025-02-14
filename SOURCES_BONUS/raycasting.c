@@ -3,45 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:50 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:51 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/14 01:19:10 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
+void	visible_height(t_struct *data, double *step, double *pos, float height)
 {
-	char	*dst;
+	int		draw_start;
+	int		draw_end;
 
-	dst = data->addr + (y * data->len + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
+	data->start_w = (data->sc_h - height) / 2;
+	data->end_w = data->start_w + height;
+	draw_start = fmax(data->start_w, 0);
+	draw_end = fmin(data->end_w, data->sc_h);
+	if (draw_end <= draw_start)
+	{
+		data->start_w = 0;
+		data->end_w = 0;
+		return ;
+	}
+	*step = data->img_h / height;
+	*pos = (draw_start - data->start_w) * (*step);
+	*pos = fmax(*pos, 0);
+	*pos = fmin(*pos, data->img_h - 1);
+	data->start_w = draw_start;
+	data->end_w = draw_end;
 }
 
 void	render_vertical(t_struct *data, int x, float height, double wall_hit)
 {
-	double	start;
-	double	end;
 	double	step;
+	double	pos;
+	int		y;
 
-	start = (data->sc_h - height) / 2;
-	end = start + height;
-	step = (double)data->img_h / height;
-	double (pos) = 0;
+	visible_height(data, &step, &pos, height);
 	data->tex_x = (int)(wall_hit * data->img_w);
-	int (y) = 0;
+	y = 0;
 	while (y < data->sc_h)
 	{
-		if (y < start)
+		if (y < data->start_w)
 			my_mlx_pixel_put(data, x, y, get_color(data, 'C'));
-		else if (y >= start && y < end)
+		else if (y < data->end_w)
 		{
 			apply_texture(data, x, y, pos);
 			pos = pos + step;
-			if (pos >= data->img_h)
-				pos = data->img_h - 1;
+			pos = fmin(pos, data->img_h - 1);
 		}
 		else
 			my_mlx_pixel_put(data, x, y, get_color(data, 'F'));

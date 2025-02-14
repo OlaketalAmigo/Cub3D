@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   dda_algo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:58:15 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:58:16 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/14 01:16:04 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	my_mlx_pixel_put(t_struct *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->len + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
+}
 
 int	is_border(t_struct *data, int x, int y)
 {

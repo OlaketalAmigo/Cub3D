@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tfauve-p <tfauve-p@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hehe <hehe@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 13:59:30 by tfauve-p          #+#    #+#             */
-/*   Updated: 2025/02/06 13:59:31 by tfauve-p         ###   ########.fr       */
+/*   Updated: 2025/02/14 00:57:38 by hehe             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ int	graphic_init(t_struct *data)
 
 int	init_dir(t_struct *data, int dir)
 {
-	if (dir == 'N')
+	if (dir == 'S')
 	{
 		data->player_x_dir = M_PI / 2;
 		return (GOOD);
 	}
-	else if (dir == 'S')
+	else if (dir == 'N')
 	{
 		data->player_x_dir = 3 * M_PI / 2;
 		return (GOOD);
